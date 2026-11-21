@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VALO.GG - 발로란트 조준점 & 프로 세팅 아카이브</title>
+  <style>
+    :root {
+      --bg-main: #0f1923;
+      --bg-card: #162330;
+      --bg-card-hover: #1d2d3e;
+      --bg-input: #0b1219;
+      --accent: #ff4655;
+      --accent-hover: #e03543;
+      --cyan: #00e5ff;
+      --text-main: #ece8e1;
+      --text-muted: #8b9bb4;
+      --border: #263749;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(15, 25, 35, 0.95);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .logo span { color: var(--accent); }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.05); }
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .report-btn {
+      background: rgba(0, 229, 255, 0.12);
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      color: var(--cyan);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .report-btn:hover { background: rgba(0, 229, 255, 0.22); }
+
+    main {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+      flex: 1;
+    }
+
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 11px 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .search-box input:focus { border-color: var(--accent); }
+
+    .bg-switcher {
+      display: flex;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+    }
+    .bg-opt {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .bg-opt.active { background: var(--bg-card); color: var(--text-main); }
+
+    .tag-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .tag-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .tag-chip:hover { border-color: var(--text-muted); color: var(--text-main); }
+    .tag-chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.15s, border-color 0.15s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .preview-stage {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+    }
+    .preview-stage.bg-dark { background: radial-gradient(circle at center, #1d2b3a 0%, #0b1219 100%); }
+    .preview-stage.bg-light { background: linear-gradient(135deg, #d7cec0 0%, #b5aa99 100%); }
+    .preview-stage.bg-range { background: linear-gradient(180deg, #3c546b 0%, #7d8c99 55%, #5e5449 100%); }
+
+    .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .mini-tag {
+      font-size: 0.72rem;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .copy-btn {
+      margin-top: auto;
+      width: 100%;
+      background: rgba(255, 70, 85, 0.14);
+      border: 1px solid rgba(255, 70, 85, 0.4);
+      color: #ff7580;
+      padding: 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .copy-btn:hover { background: var(--accent); color: #fff; }
+    .copy-btn.copied { background: #10b981; border-color: #10b981; color: #fff; }
+
+    /* Pro Section */
+    .matcher-box {
+      background: linear-gradient(135deg, #162330 0%, #1b2a3b 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .matcher-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: var(--cyan);
+    }
+    .matcher-inputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .input-group label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .input-group input {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 9px 12px;
+      border-radius: 6px;
+      width: 130px;
+      font-weight: 700;
+    }
+    .edpi-display {
+      background: rgba(255, 70, 85, 0.15);
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .match-results {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .match-card {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .match-card:hover { border-color: var(--cyan); }
+
+    .league-bar, .team-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .pill-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+    .pill-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .pro-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .pro-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .pro-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .pro-ign { font-size: 1.15rem; font-weight: 900; }
+    .pro-name { font-size: 0.8rem; color: var(--text-muted); }
+    .pro-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      background: var(--bg-input);
+      padding: 8px;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .stat-label { font-size: 0.7rem; color: var(--text-muted); }
+    .stat-val { font-size: 0.88rem; font-weight: 800; color: var(--text-main); }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      max-width: 520px;
+      width: 100%;
+      padding: 24px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+
+    .code-box {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.82rem;
+      word-break: break-all;
+      color: var(--cyan);
+      margin: 12px 0;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .form-field label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; }
+    .form-field input, .form-field select, .form-field textarea {
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 10px;
+      border-radius: 6px;
+      font-family: inherit;
+    }
+
+    .reports-section {
+      margin-top: 48px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+    .report-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 10px;
+      font-size: 0.88rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      background: #0b1219;
+    }
+    footer strong { color: var(--accent); }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo" onclick="switchTab('crosshairs')">
+        <span>VALO</span>.GG
+      </div>
+      <div class="tabs">
+        <button id="tab-crosshairs" class="tab-btn active" onclick="switchTab('crosshairs')">조준점 모음 (230+)</button>
+        <button id="tab-pros" class="tab-btn" onclick="switchTab('pros')">프로 선수 세팅</button>
+      </div>
+      <button class="report-btn" onclick="openReportModal()">+ 정보 수정 / 제보</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- TAB 1: CROSSHAIRS -->
+    <section id="view-crosshairs">
+      <div class="controls-bar">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="특징 검색 (예: 점, 십자, 원, 시안, 초록, 외곽선, 스마일...)" oninput="renderCrosshairs()" />
+        </div>
+        <div class="bg-switcher">
+          <button class="bg-opt active" onclick="setPreviewBg('bg-dark', this)">다크</button>
+          <button class="bg-opt" onclick="setPreviewBg('bg-light', this)">밝음</button>
+          <button class="bg-opt" onclick="setPreviewBg('bg-range', this)">사격장</button>
+        </div>
+      </div>
+
+      <div class="tag-filters" id="tag-filters"></div>
+      <div class="grid" id="crosshair-grid"></div>
+    </section>
+
+    <!-- TAB 2: PRO PLAYERS -->
+    <section id="view-pros" class="hidden">
+      <div class="matcher-box">
+        <div class="matcher-title">내 감도 프로 매칭 시스템 (eDPI 비교)</div>
+        <div class="matcher-inputs">
+          <div class="input-group">
+            <label>마우스 DPI</label>
+            <input type="number" id="user-dpi" value="800" min="100" max="16000" step="50" oninput="updateMatcher()" />
+          </div>
+          <div class="input-group">
+            <label>인게임 감도</label>
+            <input type="number" id="user-sens" value="0.3" min="0.01" max="10" step="0.005" oninput="updateMatcher()" />
+          </div>
+          <div class="edpi-display" id="user-edpi">내 eDPI: 240.0</div>
+        </div>
+        <div class="match-results" id="match-results"></div>
+      </div>
+
+      <div class="league-bar" id="league-bar"></div>
+      <div class="team-bar" id="team-bar"></div>
+      <div class="grid" id="pro-grid"></div>
+    </section>
+
+    <!-- USER REPORTS LIST -->
+    <section class="reports-section">
+      <h3 style="font-size:1rem; color:var(--text-muted);">최근 접수된 수정 요청 / 제보 목록</h3>
+      <div id="reports-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>VALORANT Crosshair & VCT Pro Settings Database</p>
+    <p style="margin-top:6px;"><strong>Made by hybe12</strong></p>
+  </footer>
+
+  <!-- DETAIL MODAL -->
+  <div class="modal-backdrop" id="detail-modal" onclick="closeModalOnBackdrop(event, 'detail-modal')">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="modal-title">상세 정보</h3>
+        <button class="close-btn" onclick="closeModal('detail-modal')">&times;</button>
+      </div>
+      <div id="modal-preview" class="preview-stage bg-dark" style="border-radius:8px; height:160px;"></div>
+      <div id="modal-meta" style="margin-top:14px; font-size:0.9rem;"></div>
+      <div class="code-box" id="modal-code"></div>
+      <div style="display:flex; gap:8px;">
+        <button class="copy-btn" id="modal-copy-btn" onclick="copyModalCode()">조준점 코드 복사</button>
+        <button class="report-btn" style="white-space:nowrap;" onclick="reportCurrentItem()">이 정보 수정 요청</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORT MODAL -->
+  <div class="modal-backdrop" id="report-modal" onclick="closeModalOnBackdrop(event, 'report-modal')">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>정보 수정 요청 / 제보</h3>
+        <button class="close-btn" onclick="closeModal('report-modal')">&times;</button>
+      </div>
+      <form onsubmit="submitReport(event)">
+        <div class="form-field">
+          <label>분류</label>
+          <select id="rep-type">
+            <option value="프로 감도/로스터 수정">프로 감도 / 로스터 수정</option>
+            <option value="조준점 코드 수정">조준점 코드 오류 제보</option>
+            <option value="신규 조준점 추가">신규 조준점 추가 요청</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>대상 (선수명 또는 조준점 이름)</label>
+          <input type="text" id="rep-target" required placeholder="예: Gen.G t3xture / 시안 미니 점" />
+        </div>
+        <div class="form-field">
+          <label>수정할 내용 및 코드/출처</label>
+          <textarea id="rep-desc" rows="3" required placeholder="변경된 감도, DPI 또는 정확한 조준점 코드를 적어주세요."></textarea>
+        </div>
+        <button type="submit" class="copy-btn" style="background:var(--accent); color:#fff;">제보 등록하기</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const COLOR_MAP = {
+      '0': '#ffffff',
+      '1': '#00ff00',
+      '2': '#7fff00',
+      '3': '#dfff00',
+      '4': '#ffff00',
+      '5': '#00ffff',
+      '6': '#ff00ff',
+      '7': '#ff0000'
+    };
+
+    function parseCrosshairCode(code) {
+      const parts = (code || '').split(';');
+      const cfg = {
+        color: '#00ffff',
+        outline: true,
+        outlineAlpha: 0.5,
+        outlineThick: 1,
+        dot: false,
+        dotSize: 2,
+        dotAlpha: 1,
+        innerShow: true,
+        innerLen: 4,
+        innerThick: 2,
+        innerOffset: 2,
+        innerAlpha: 1,
+        outerShow: false,
+        outerLen: 2,
+        outerThick: 2,
+        outerOffset: 6,
+        outerAlpha: 0.5
+      };
+
+      let section = 'P';
+      for (let i = 0; i < parts.length; i++) {
+        const k = parts[i];
+        if (k === 'P' || k === 'A' || k === 'S') {
+          section = k;
+          continue;
+        }
+        const v = parts[i + 1];
+        if (section !== 'P' || v === undefined) continue;
+
+        if (k === 'c') { cfg.color = COLOR_MAP[v] || '#00ffff'; i++; }
+        else if (k === 'u') { cfg.color = '#' + v.slice(0, 6); i++; }
+        else if (k === 'h') { cfg.outline = v !== '0'; i++; }
+        else if (k === 'o') { cfg.outlineAlpha = parseFloat(v); i++; }
+        else if (k === 't') { cfg.outlineThick = parseFloat(v); i++; }
+        else if (k === 'd') { cfg.dot = v === '1'; i++; }
+        else if (k === 'z') { cfg.dotSize = parseFloat(v); i++; }
+        else if (k === 'a') { cfg.dotAlpha = parseFloat(v); i++; }
+        else if (k === '0b') { cfg.innerShow = v !== '0'; i++; }
+        else if (k === '0l') { cfg.innerLen = parseFloat(v); i++; }
+        else if (k === '0t') { cfg.innerThick = parseFloat(v); i++; }
+        else if (k === '0o') { cfg.innerOffset = parseFloat(v); i++; }
+        else if (k === '0a') { cfg.innerAlpha = parseFloat(v); i++; }
+        else if (k === '1b') { cfg.outerShow = v !== '0'; i++; }
+        else if (k === '1l') { cfg.outerLen = parseFloat(v); i++; }
+        else if (k === '1t') { cfg.outerThick = parseFloat(v); i++; }
+        else if (k === '1o') { cfg.outerOffset = parseFloat(v); i++; }
+        else if (k === '1a') { cfg.outerAlpha = parseFloat(v); i++; }
+      }
+      return cfg;
+    }
+
+    function renderCrosshairSVG(code, size = 80) {
+      const c = parseCrosshairCode(code);
+      const mid = size / 2;
+      const stroke = c.outline ? `stroke="#000" stroke-width="${Math.max(0.6, c.outlineThick * 0.7)}"` : '';
+      let shapes = '';
+
+      if (c.innerShow && c.innerLen > 0) {
+        const l = c.innerLen * 2.2;
+        const t = Math.max(1.2, c.innerThick * 1.1);
+        const o = c.innerOffset * 2;
+        const op = c.innerAlpha;
+        shapes += `
+          <rect x="${mid - t/2}" y="${mid - o - l}" width="${t}" height="${l}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
+          <rect x="${mid - t/2}" y="${mid + o}" width="${t}" height="${l}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
+          <rect x="${mid - o - l}" y="${mid - t/2}" width="${l}" height="${t}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
+          <rect x="${mid + o}" y="${mid - t/2}" width="${l}" height="${t}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
+        `;
+      }
+
+      if (c.outerShow && c.outerLen > 0) {
+        const l = c.outerLen * 2.2;
+        const t = Math.max(1.2, c.outerThick * 1.1);
+        const o = c.outerOffset * 2.2;
+        const op = c.outerAlpha;
+        shapes += `
+          <rect x="${mid - t/2}" y="${mid - o - l}" width="${t}" height="${l}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
+          <rect x="${mid - t/2}" y="${mid + o}" width="${t}" height="${l}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
+          <rect x="${mid - o - l}" y="${mid - t/2}" width="${l}" height="${t}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
+          <rect x="${mid + o}" y="${mid - t/2}" width="${l}" height="${t}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
+        `;
+      }
+
+      if (c.dot) {
+        const ds = Math.max(2, c.dotSize * 1.4);
+        shapes += `<rect x="${mid - ds/2}" y="${mid - ds/2}" width="${ds}" height="${ds}" fill="${c.color}" fill-opacity="${c.dotAlpha}" ${stroke}/>`;
+      }
+
+      return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${shapes}</svg>`;
+    }
+
+    // Generate 230+ Crosshairs
+    const CROSSHAIRS = [];
+    const PRESET_COLORS = [
+      { id: '5', name: '시안', tag: '시안' },
+      { id: '1', name: '초록', tag: '초록' },
+      { id: '0', name: '화이트', tag: '화이트' },
+      { id: '4', name: '옐로우', tag: '노랑' },
+      { id: '6', name: '핑크', tag: '핑크' },
+      { id: '7', name: '레드', tag: '빨강' }
+    ];
+
+    // 1. Dot variants
+    PRESET_COLORS.forEach(col => {
+      [2, 3, 4].forEach(sz => {
+        [true, false].forEach(out => {
+          CROSSHAIRS.push({
+            id: `dot-${col.id}-${sz}-${out}`,
+            name: `${col.name} ${out ? '외곽선' : '순수'} 점 (${sz}px)`,
+            tags: ['점', col.tag, out ? '외곽선' : '미니멀', '원탭'],
+            code: `0;s;1;P;c;${col.id};h;${out ? 1 : 0};o;1;d;1;z;${sz};0b;0;1b;0`
+          });
+        });
+      });
+    });
+
+    // 2. Classic Cross variants
+    PRESET_COLORS.forEach(col => {
+      [2, 3, 4, 5, 6].forEach(len => {
+        [1, 2, 3].forEach(off => {
+          [true, false].forEach(out => {
+            CROSSHAIRS.push({
+              id: `cross-${col.id}-${len}-${off}-${out}`,
+              name: `${col.name} 십자 (${len}-${off}${out ? ' 외곽선' : ''})`,
+              tags: ['십자', col.tag, out ? '외곽선' : '클린', len <= 3 ? '미니' : '표준'],
+              code: `0;s;1;P;c;${col.id};h;${out ? 1 : 0};o;0.8;0l;${len};0o;${off};0a;1;0f;0;1b;0`
+            });
+          });
+        });
+      });
+    });
+
+    // 3. Circle & Fun Crosshairs
+    const SPECIAL_CROSSHAIRS = [
+      { name: '시안 미니 원 (Circle)', tags: ['원', '시안', '헤드라인'], code: '0;P;c;5;h;0;0t;4;0l;1;0o;2;0a;1;0f;0;1b;0' },
+      { name: '초록 중형 원 (Circle)', tags: ['원', '초록', '샷건'], code: '0;P;c;1;h;0;0t;6;0l;1;0o;3;0a;1;0f;0;1b;0' },
+      { name: '화이트 외곽선 원', tags: ['원', '화이트', '외곽선'], code: '0;P;c;0;h;1;o;1;0t;4;0l;1;0o;2;0a;1;0f;0;1b;0' },
+      { name: '스마일 재미 조준점', tags: ['스마일', '재미', '트롤'], code: '0;P;c;4;t;2;o;1;d;1;z;3;a;1;0t;10;0l;1;0o;5;0a;1;0f;0;1b;0' },
+      { name: '핑크 하트 조준점', tags: ['하트', '핑크', '재미'], code: '0;P;c;6;o;1;d;1;z;3;0t;4;0l;2;0o;2;0a;1;0f;0;1t;2;1l;3;1o;3;1a;1;1m;0;1f;0' },
+      { name: '네모 박스 (Square)', tags: ['사각형', '네모', '화이트'], code: '0;P;c;0;h;0;0t;6;0l;1;0o;2;0a;1;0f;0;1b;0' },
+      { name: '이중 십자 (하이브리드)', tags: ['십자', '이중', '초록'], code: '0;P;c;1;h;0;0l;4;0o;2;0a;1;0f;0;1l;2;1o;6;1a;0.6;1f;0' },
+      { name: '점 + 십자 하이브리드', tags: ['점', '십자', '시안'], code: '0;P;c;5;h;0;d;1;z;2;0l;3;0o;3;0a;1;0f;0;1b;0' }
+    ];
+    SPECIAL_CROSSHAIRS.forEach((item, idx) => {
+      CROSSHAIRS.unshift({ id: `special-${idx}`, ...item });
+    });
+
+    // Pro Players Data (Pacific, Americas, EMEA)
+    const PRO_DATA = {
+      Pacific: {
+        'Gen.G': [
+          { ign: 't3xture', name: '김나라', sens: 0.45, dpi: 800, edpi: 360, code: '0;s;1;P;o;0;f;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Karon', name: '김원태', sens: 0.2, dpi: 800, edpi: 160, code: '0;s;1;P;o;1;d;1;0b;0;1b;0' },
+          { ign: 'RaxcaL', name: '김민석', sens: 0.31, dpi: 800, edpi: 248, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Dambi', name: '이혁규', sens: 0.175, dpi: 1600, edpi: 280, code: '0;P;c;0;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Mako', name: '김명관', sens: 0.45, dpi: 400, edpi: 180, code: '0;P;o;1;d;1;f;0;0b;0;1b;0' },
+          { ign: 'Ray', name: '오은혁', sens: 0.45, dpi: 800, edpi: 360, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'T1': [
+          { ign: 'iZu', name: '함우주', sens: 0.326, dpi: 800, edpi: 200, code: '0;s;1;P;o;1;d;1;f;0;0b;0;1b;0' },
+          { ign: 'stax', name: '김구택', sens: 0.215, dpi: 800, edpi: 172, code: '0;p;0;P;h;0;f;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'BuZz', name: '유병청', sens: 0.57, dpi: 400, edpi: 228, code: '0;p;0;s;1;P;h;0;f;0;0l;2;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'crashies', name: '오스틴 로버츠', sens: 0.23, dpi: 800, edpi: 184, code: '0;s;1;P;c;1;h;0;f;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'TenZ', name: '타이슨 응오', sens: 0.14, dpi: 200, edpi: 280, code: '0;s;1;P;c;5;h;0;m;1;0l;4;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Paper Rex': [
+          { ign: 'f0rsakeN', name: '재이슨 수산토', sens: 0.712, dpi: 800, edpi: 569.6, code: '0;s;1;P;o;1;0t;1;0l;1;0o;4;0a;1;0f;0;1b;0' },
+          { ign: 'something', name: '일리야 페르토프', sens: 0.58, dpi: 800, edpi: 464, code: '0;P;o;0.619;d;1;f;0;s;0;0t;1;0l;0;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'invy', name: '에어두리언 레예스', sens: 0.21, dpi: 800, edpi: 168, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'PatMen', name: '패트락 멘도사', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Primmie', name: '빠파팟 시파파', sens: 0.31, dpi: 800, edpi: 280, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Rex Regum Qeon': [
+          { ign: 'Xffero', name: '데이비드 모낭인', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Jemkin', name: '막심 바토로프', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Monyet', name: '차야 누그라하', sens: 0.4, dpi: 800, edpi: 320, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Kushy', name: '브라이언 세티아완', sens: 0.14, dpi: 1600, edpi: 224, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'crazyguy', name: '응오꽁안', sens: 0.13, dpi: 1600, edpi: 207, code: '0;P;c;0;h;1;o;1;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'FULL SENSE': [
+          { ign: 'Leviathan', name: '탄야톤 낙미', sens: 0.45, dpi: 800, edpi: 360, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'JitBoyS', name: '찌타나 녹남', sens: 0.5, dpi: 800, edpi: 400, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'killua', name: '타넷 티라시왓', sens: 0.604, dpi: 700, edpi: 422.8, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'ZETA DIVISION': [
+          { ign: 'SugarZ3ro', name: '와타나베 쇼타', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;1;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Xdll', name: '미조모리 유토', sens: null, dpi: null, edpi: null, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'eKo', name: '염왕룡', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Absol', name: '후지노카 카즈키', sens: null, dpi: null, edpi: null, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'SyouTa', name: '아오키 쇼타', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+        ]
+      },
+      Americas: {
+        'G2 Esports': [
+          { ign: 'trent', name: '트렌트 케언스', sens: 0.133, dpi: 1600, edpi: 212.8, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'leaf', name: '네이선 오프', sens: 0.08, dpi: 1600, edpi: 128, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'JAWGEMO', name: '알렉산더 모어', sens: 0.115, dpi: 1600, edpi: 184, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Sentinels': [
+          { ign: 'johnqt', name: '무함마드 와리드', sens: 0.4, dpi: 800, edpi: 320, code: '0;p;0;s;1;P;c;2;u;000000FF;h;0;f;0;0l;5;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'cortezia', name: '가브리에우 코르테스', sens: 0.16, dpi: 800, edpi: 128, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'reduxx', name: '야신 아불랄라즘', sens: 0.15, dpi: 800, edpi: 128, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'OXY', name: '프랜시스 호앙', sens: 0.23, dpi: 800, edpi: 184, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'canzerra', name: '알렉스 바냐스', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'MIBR': [
+          { ign: 'aspas', name: '에리크 산투스', sens: 0.4, dpi: 800, edpi: 320, code: '0;P;c;5;o;1;d;1;z;3;f;0;0b;0;1b;0' },
+          { ign: 'Verno', name: '앤드루 마우스트', sens: 0.76, dpi: 1600, edpi: 121.6, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'mazino', name: '로베르토 리바스', sens: 0.17, dpi: 1600, edpi: 272, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'tex', name: '이언 보치', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'zekken', name: '재커리 패트론', sens: 0.175, dpi: 1600, edpi: 280, code: '0;s;1;P;c;8;u;D099E2FF;o;1;d;1;b;1;z;1;0t;1;0l;2;0o;0;0a;1;0f;0;1b;0' }
+        ],
+        'KRÜ Visa': [
+          { ign: 'Dante', name: '헤수스 라로사', sens: 0.5, dpi: 800, edpi: 400, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Less', name: '펠리피 바수', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;0;o;1;d;1;z;3;f;0;0b;0;1b;0' },
+          { ign: 'mwzera', name: '레오나르두 세하치', sens: 0.24, dpi: 800, edpi: 192, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'heat', name: '올라부 마르셀루', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Saadhak', name: '마티아스 델리페트로', sens: 0.225, dpi: 900, edpi: 229.5, code: '0;P;c;1;o;1;f;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Leviatán': [
+          { ign: 'kiNgg', name: '프란시스코 아라베나', sens: 0.24, dpi: 800, edpi: 192, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Sato', name: '에두아르도 사토', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'browz', name: '길례르미 올리배이라', sens: 0.2, dpi: 800, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Neon', name: '브루노 로드리게스', sens: 0.2, dpi: 800, edpi: 160, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'spikeziN', name: '호드리구 롬바르지', sens: 0.23, dpi: 800, edpi: 184, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'LOUD': [
+          { ign: 'luk xo', name: '루카 트라바이올리', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Darker', name: '세바스티룬 시콰미아', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Erde', name: '로베르토 로보스', sens: 0.2, dpi: 800, edpi: 160, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'tkzin', name: '엔주 지미아니', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'DaviH', name: '다비드 크루스', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'NRG': [
+          { ign: 'Ethan', name: '이선 아놀드', sens: 0.58, dpi: 400, edpi: 232, code: '0;P;c;1;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'mada', name: '애덤 팸퍼치', sens: 0.37, dpi: 800, edpi: 296, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'brawk', name: '브록 서머홀더', sens: 0.2, dpi: 800, edpi: 160, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'skuba', name: '로건 젱킨스', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'keiko', name: '조지오 새너시', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Cloud9': [
+          { ign: 'GLYPH', name: '코너 가르시아', sens: 0.14, dpi: 1600, edpi: 224, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Zellsis', name: '조던 몬태무로', sens: 0.215, dpi: 800, edpi: 172, code: '0;s;1;P;c;1;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'FireBallOps', name: '캐머런 토머셀리', sens: 0.35, dpi: 400, edpi: 140, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'v1c', name: '빅터 쯔엉', sens: 0.12, dpi: 800, edpi: 96, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        '100 Thieves': [
+          { ign: 'Asuna', name: '피터 마주리', sens: 0.26, dpi: 1400, edpi: 364, code: '0;P;o;1;0t;1;0l;2;0a;1;0f;0;1b;0' },
+          { ign: 'Cryo', name: '매튜 팡아니반', sens: 0.08, dpi: 1600, edpi: 128, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Timotino', name: '티모테 뒤퐁', sens: 0.112, dpi: 1600, edpi: 179.2, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Vora', name: '조던 풀워', sens: 0.12, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'bang', name: '숀 베제라', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;8;u;000000FF;h;0;0l;4;0o;0;0a;1;0f;0;1b;0' }
+        ],
+        'ENVY': [
+          { ign: 'Eggsterr', name: '에번 그레이디', sens: 0.15, dpi: 1600, edpi: 240, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'ion2x', name: '아얀 라스토기', sens: 0.067, dpi: 3200, edpi: 214.4, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'POPPIN', name: '마테오 웨버', sens: 0.045, dpi: 3200, edpi: 144, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'keznit', name: '앙헬로 모리', sens: 0.346, dpi: 800, edpi: 276.8, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Rossy', name: '대니얼 아베도리보', sens: 0.154, dpi: 1600, edpi: 246.4, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Demon1', name: '맥스 마자노프', sens: 0.1, dpi: 1600, edpi: 160, code: '0;s;1;P;o;1;d;1;f;0;0b;0;1b;0' }
+        ]
+      },
+      EMEA: {
+        'Team Vitality': [
+          { ign: 'Derke', name: '니키타 시르미테프', sens: 0.74, dpi: 400, edpi: 296, code: '0;s;1;P;o;1;d;1;f;0;s;0;0t;0;0l;1;0o;0;0a;1;0f;0;1b;0' },
+          { ign: 'Saynara', name: '슈테판 므트쿠', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Chronicle', name: '티모페이 흐로모프', sens: 0.175, dpi: 1600, edpi: 280, code: '0;P;c;7;o;1;f;0;0t;1;0l;3;0v;3;0g;1;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Jamppi', name: '엘리아스 올코넨', sens: 0.42, dpi: 800, edpi: 336, code: '0;s;1;P;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'PROFEK', name: '다비트 시비엥치', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Team Liquid': [
+          { ign: 'nAts', name: '아야스 아흐메신', sens: 0.49, dpi: 800, edpi: 392, code: '0;P;c;1;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'kamo', name: '카밀 프롱츠코비아크', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Kicks', name: '키미 라스네르', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'trexx', name: '니키타 체레도니첸코', sens: 0.226, dpi: 800, edpi: 180.8, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'GSR', name: '오그넨 본지치', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Team Heretics': [
+          { ign: 'benjyfishy', name: '벤지피시', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;7;h;0;d;1;z;1;0t;1;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'RieNs', name: '에네스 에지를리', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Wo0t', name: '메르트 알칸', sens: 0.5, dpi: 500, edpi: 250, code: '0;P;c;7;o;1;d;1;z;3;0b;0;1b;0' }
+        ],
+        'Fut Esports': [
+          { ign: 'yetujey', name: '에라이 부다크', sens: 0.7, dpi: 800, edpi: 560, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'xeus', name: '도안 괴즈겐', sens: 0.4, dpi: 400, edpi: 160, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'KROSTALY', name: '오칸 알라참', sens: null, dpi: null, edpi: null, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 's0pp', name: '에페 투르', sens: 0.175, dpi: 1600, edpi: 280, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'sociablEE', name: '볼칸 외날', sens: 0.3, dpi: 800, edpi: 240, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Fnatic': [
+          { ign: 'kaajak', name: '카예탄 하렘스키', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Cloud', name: '키릴 네호진', sens: 0.4, dpi: 800, edpi: 320, code: '0;P;c;0;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'BBL Esports': [
+          { ign: 'Lar0k', name: '유수프 칸배르', sens: 0.4, dpi: 400, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Loita', name: '우트큐 카르트', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Crewen', name: '알리 사르긴', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'lovers rock', name: '우무트 페크도안', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Rosé', name: '에렌 에르잔', sens: 0.23, dpi: 800, edpi: 184, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Gentle Mates': [
+          { ign: 'Minny', name: '파트리크 후셰크', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'marteen', name: '마르틴 파테크', sens: 0.06, dpi: 1600, edpi: 96, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Proxh', name: '유수프 툰츠', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Natus Vincere': [
+          { ign: 'hiro', name: '에미르한 카트', sens: 0.12, dpi: 1600, edpi: 192, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Ruxic', name: '우우르 귀츠', sens: 0.3, dpi: 800, edpi: 240, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'CyvOph', name: '클레망 미야르', sens: null, dpi: null, edpi: null, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+        ],
+        'Karmine Corp': [
+          { ign: 'avez', name: '하짐 칼리트', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'SUYGETSU', name: '드미트리 일류신', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;1;o;1;d;1;z;3;f;0;0b;0;1b;0' },
+          { ign: 'dos9', name: '다스탄 주마갈리', sens: 0.135, dpi: 1600, edpi: 216, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'LewN', name: '부라크 알칸', sens: 0.35, dpi: 800, edpi: 280, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'N4RRATE', name: '마셜 매시', sens: 0.16, dpi: 1600, edpi: 256, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+        ]
+      }
+    };
+
+    let currentBg = 'bg-dark';
+    let selectedTag = '전체';
+    let selectedLeague = 'Pacific';
+    let selectedTeam = 'Gen.G';
+    let currentModalCode = '';
+    let currentModalTitle = '';
+
+    const QUICK_TAGS = ['전체', '점', '십자', '원', '시안', '초록', '화이트', '외곽선', '미니', '스마일', '하트'];
+
+    function init() {
+      renderTagFilters();
+      renderCrosshairs();
+      renderLeagues();
+      renderTeams();
+      renderPros();
+      updateMatcher();
+      renderReports();
+    }
+
+    function switchTab(tab) {
+      document.getElementById('tab-crosshairs').classList.toggle('active', tab === 'crosshairs');
+      document.getElementById('tab-pros').classList.toggle('active', tab === 'pros');
+      document.getElementById('view-crosshairs').classList.toggle('hidden', tab !== 'crosshairs');
+      document.getElementById('view-pros').classList.toggle('hidden', tab !== 'pros');
+    }
+
+    function setPreviewBg(bg, btn) {
+      currentBg = bg;
+      document.querySelectorAll('.bg-opt').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCrosshairs();
+    }
+
+    function renderTagFilters() {
+      const container = document.getElementById('tag-filters');
+      container.innerHTML = QUICK_TAGS.map(t => `
+        <button class="tag-chip ${selectedTag === t ? 'active' : ''}" onclick="selectTag('${t}')">${t}</button>
+      `).join('');
+    }
+
+    function selectTag(tag) {
+      selectedTag = tag;
+      renderTagFilters();
+      renderCrosshairs();
+    }
+
+    function renderCrosshairs() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      const filtered = CROSSHAIRS.filter(c => {
+        const matchTag = selectedTag === '전체' || c.tags.includes(selectedTag);
+        const matchQuery = !query || c.name.toLowerCase().includes(query) || c.tags.some(t => t.toLowerCase().includes(query));
+        return matchTag && matchQuery;
+      });
+
+      const grid = document.getElementById('crosshair-grid');
+      grid.innerHTML = filtered.map(c => `
+        <div class="card">
+          <div class="preview-stage ${currentBg}" onclick="openCrosshairDetail('${c.id}')">
+            ${renderCrosshairSVG(c.code, 84)}
+          </div>
+          <div class="card-body">
+            <div class="card-title">${c.name}</div>
+            <div class="card-tags">
+              ${c.tags.map(t => `<span class="mini-tag">#${t}</span>`).join('')}
+            </div>
+            <button class="copy-btn" onclick="copyText('${c.code}', this)">코드 복사</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openCrosshairDetail(id) {
+      const item = CROSSHAIRS.find(c => c.id === id);
+      if (!item) return;
+      currentModalCode = item.code;
+      currentModalTitle = item.name;
+      document.getElementById('modal-title').textContent = item.name;
+      document.getElementById('modal-preview').innerHTML = renderCrosshairSVG(item.code, 110);
+      document.getElementById('modal-meta').innerHTML = `특징 태그: ${item.tags.map(t => '#' + t).join(' ')}`;
+      document.getElementById('modal-code').textContent = item.code;
+      document.getElementById('detail-modal').classList.add('open');
+    }
+
+    // Pro Players
+    function renderLeagues() {
+      const leagues = Object.keys(PRO_DATA);
+      document.getElementById('league-bar').innerHTML = leagues.map(l => `
+        <button class="pill-btn ${selectedLeague === l ? 'active' : ''}" onclick="selectLeague('${l}')">VCT ${l}</button>
+      `).join('');
+    }
+
+    function selectLeague(league) {
+      selectedLeague = league;
+      selectedTeam = Object.keys(PRO_DATA[league])[0];
+      renderLeagues();
+      renderTeams();
+      renderPros();
+    }
+
+    function renderTeams() {
+      const teams = Object.keys(PRO_DATA[selectedLeague]);
+      document.getElementById('team-bar').innerHTML = teams.map(t => `
+        <button class="pill-btn ${selectedTeam === t ? 'active' : ''}" onclick="selectTeam('${t}')">${t}</button>
+      `).join('');
+    }
+
+    function selectTeam(team) {
+      selectedTeam = team;
+      renderTeams();
+      renderPros();
+    }
+
+    function renderPros() {
+      const players = PRO_DATA[selectedLeague][selectedTeam] || [];
+      document.getElementById('pro-grid').innerHTML = players.map((p, idx) => `
+        <div class="pro-card" onclick="openProDetail('${selectedLeague}', '${selectedTeam}', ${idx})">
+          <div class="pro-header">
+            <div>
+              <div class="pro-ign">${p.ign}</div>
+              <div class="pro-name">${p.name} · ${selectedTeam}</div>
+            </div>
+            <div style="background:#0b1219; border-radius:8px; padding:4px;">
+              ${renderCrosshairSVG(p.code, 46)}
+            </div>
+          </div>
+          <div class="pro-stats">
+            <div><div class="stat-label">DPI</div><div class="stat-val">${p.dpi ?? '-'}</div></div>
+            <div><div class="stat-label">감도</div><div class="stat-val">${p.sens ?? '-'}</div></div>
+            <div><div class="stat-label">eDPI</div><div class="stat-val" style="color:var(--cyan);">${p.edpi ?? '-'}</div></div>
+          </div>
+          <button class="copy-btn" onclick="event.stopPropagation(); copyText('${p.code}', this)">조준점 코드 복사</button>
+        </div>
+      `).join('');
+    }
+
+    function openProDetail(league, team, idx) {
+      const p = PRO_DATA[league][team][idx];
+      currentModalCode = p.code;
+      currentModalTitle = `${team} ${p.ign} (${p.name})`;
+      document.getElementById('modal-title').textContent = currentModalTitle;
+      document.getElementById('modal-preview').innerHTML = renderCrosshairSVG(p.code, 110);
+      document.getElementById('modal-meta').innerHTML = `
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; text-align:center; background:#0b1219; padding:10px; border-radius:8px;">
+          <div><span style="color:var(--text-muted); font-size:0.75rem;">DPI</span><br><strong>${p.dpi ?? '-'}</strong></div>
+          <div><span style="color:var(--text-muted); font-size:0.75rem;">인게임 감도</span><br><strong>${p.sens ?? '-'}</strong></div>
+          <div><span style="color:var(--text-muted); font-size:0.75rem;">eDPI</span><br><strong style="color:var(--cyan);">${p.edpi ?? '-'}</strong></div>
+        </div>
+      `;
+      document.getElementById('modal-code').textContent = p.code;
+      document.getElementById('detail-modal').classList.add('open');
+    }
+
+    function updateMatcher() {
+      const dpi = parseFloat(document.getElementById('user-dpi').value) || 0;
+      const sens = parseFloat(document.getElementById('user-sens').value) || 0;
+      const myEdpi = +(dpi * sens).toFixed(1);
+      document.getElementById('user-edpi').textContent = `내 eDPI: ${myEdpi}`;
+
+      const allPros = [];
+      Object.entries(PRO_DATA).forEach(([league, teams]) => {
+        Object.entries(teams).forEach(([team, players]) => {
+          players.forEach((p, idx) => {
+            if (p.edpi !== null) {
+              allPros.push({ ...p, league, team, idx, diff: Math.abs(p.edpi - myEdpi) });
+            }
+          });
+        });
+      });
+
+      allPros.sort((a, b) => a.diff - b.diff);
+      const top3 = allPros.slice(0, 3);
+
+      document.getElementById('match-results').innerHTML = top3.map(p => `
+        <div class="match-card" onclick="openProDetail('${p.league}', '${p.team}', ${p.idx})">
+          <div>
+            <div style="font-weight:800; font-size:0.95rem;">${p.ign} <span style="font-size:0.75rem; color:var(--text-muted);">(${p.team})</span></div>
+            <div style="font-size:0.78rem; color:var(--cyan);">eDPI ${p.edpi} (차이 ${p.diff.toFixed(1)})</div>
+          </div>
+          ${renderCrosshairSVG(p.code, 38)}
+        </div>
+      `).join('');
+    }
+
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text);
+      const orig = btn.textContent;
+      btn.textContent = '복사 완료!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.classList.remove('copied');
+      }, 1400);
+    }
+
+    function copyModalCode() {
+      copyText(currentModalCode, document.getElementById('modal-copy-btn'));
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function closeModalOnBackdrop(e, id) {
+      if (e.target.id === id) closeModal(id);
+    }
+
+    function openReportModal(prefillTarget = '') {
+      document.getElementById('rep-target').value = prefillTarget;
+      document.getElementById('report-modal').classList.add('open');
+    }
+
+    function reportCurrentItem() {
+      closeModal('detail-modal');
+      openReportModal(currentModalTitle);
+    }
+
+    function submitReport(e) {
+      e.preventDefault();
+      const reports = JSON.parse(localStorage.getItem('valo_gg_reports') || '[]');
+      reports.unshift({
+        type: document.getElementById('rep-type').value,
+        target: document.getElementById('rep-target').value,
+        desc: document.getElementById('rep-desc').value,
+        date: new Date().toLocaleString('ko-KR')
+      });
+      localStorage.setItem('valo_gg_reports', JSON.stringify(reports));
+      e.target.reset();
+      closeModal('report-modal');
+      renderReports();
+    }
+
+    function renderReports() {
+      const reports = JSON.parse(localStorage.getItem('valo_gg_reports') || '[]');
+      const container = document.getElementById('reports-list');
+      if (reports.length === 0) {
+        container.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">아직 접수된 수정 요청이 없습니다. 상단 '+ 정보 수정 / 제보' 버튼으로 첫 요청을 남겨보세요.</p>`;
+        return;
+      }
+      container.innerHTML = reports.map(r => `
+        <div class="report-item">
+          <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+            <strong style="color:var(--cyan);">[${r.type}] ${r.target}</strong>
+            <span style="font-size:0.75rem; color:var(--text-muted);">${r.date}</span>
+          </div>
+          <div style="color:var(--text-main);">${r.desc}</div>
+        </div>
+      `).join('');
+    }
+
+    init();
+  </script>
+</body>
+</html>
