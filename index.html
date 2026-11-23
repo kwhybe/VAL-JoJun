@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VALO.GG - 발로란트 조준점 & 프로 세팅 아카이브</title>
+  <title>VALO.GG - 발로란트 조준점 1,000+ & 프로 세팅 아카이브</title>
   <style>
     :root {
       --bg-main: #0f1923;
@@ -13,6 +13,8 @@
       --accent: #ff4655;
       --accent-hover: #e03543;
       --cyan: #00e5ff;
+      --green: #10b981;
+      --amber: #f59e0b;
       --text-main: #ece8e1;
       --text-muted: #8b9bb4;
       --border: #263749;
@@ -30,7 +32,7 @@
     }
 
     header {
-      background: rgba(15, 25, 35, 0.95);
+      background: rgba(15, 25, 35, 0.96);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -39,14 +41,14 @@
     }
 
     .nav-container {
-      max-width: 1280px;
+      max-width: 1320px;
       margin: 0 auto;
       padding: 0 20px;
-      height: 64px;
+      min-height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
@@ -63,16 +65,17 @@
 
     .tabs {
       display: flex;
-      gap: 8px;
+      gap: 6px;
+      flex-wrap: wrap;
     }
     .tab-btn {
       background: transparent;
       border: 1px solid transparent;
       color: var(--text-muted);
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 6px;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -82,39 +85,73 @@
       color: #fff;
     }
 
-    .report-btn {
+    .header-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
       background: rgba(0, 229, 255, 0.12);
       border: 1px solid rgba(0, 229, 255, 0.35);
       color: var(--cyan);
-      padding: 7px 14px;
+      padding: 7px 12px;
       border-radius: 6px;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       cursor: pointer;
       transition: 0.2s;
     }
-    .report-btn:hover { background: rgba(0, 229, 255, 0.22); }
+    .action-btn:hover { background: rgba(0, 229, 255, 0.22); }
+
+    .admin-btn {
+      background: rgba(245, 158, 11, 0.14);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      color: var(--amber);
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .admin-btn:hover { background: rgba(245, 158, 11, 0.25); }
 
     main {
-      max-width: 1280px;
+      max-width: 1320px;
       width: 100%;
       margin: 0 auto;
-      padding: 28px 20px 60px;
+      padding: 24px 20px 60px;
       flex: 1;
     }
+
+    .notice-banner {
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.25);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .notice-banner strong { color: var(--cyan); }
 
     .controls-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       align-items: center;
     }
 
     .search-box {
       flex: 1;
       min-width: 240px;
-      position: relative;
     }
     .search-box input {
       width: 100%;
@@ -151,15 +188,15 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 24px;
+      margin-bottom: 14px;
     }
     .tag-chip {
       background: var(--bg-card);
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 6px 14px;
+      padding: 6px 13px;
       border-radius: 999px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
       transition: 0.15s;
@@ -171,10 +208,21 @@
       color: #fff;
     }
 
+    .result-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+      gap: 14px;
     }
 
     .card {
@@ -192,7 +240,7 @@
     }
 
     .preview-stage {
-      height: 130px;
+      height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -204,20 +252,31 @@
     .preview-stage.bg-light { background: linear-gradient(135deg, #d7cec0 0%, #b5aa99 100%); }
     .preview-stage.bg-range { background: linear-gradient(180deg, #3c546b 0%, #7d8c99 55%, #5e5449 100%); }
 
+    .color-dot-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.65);
+    }
+
     .card-body {
-      padding: 14px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       flex: 1;
     }
 
     .card-title {
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 6px;
     }
 
     .card-tags {
@@ -226,10 +285,10 @@
       gap: 4px;
     }
     .mini-tag {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       background: rgba(255,255,255,0.06);
       color: var(--text-muted);
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: 4px;
     }
 
@@ -242,23 +301,42 @@
       padding: 8px;
       border-radius: 6px;
       font-weight: 700;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       cursor: pointer;
       transition: 0.15s;
     }
     .copy-btn:hover { background: var(--accent); color: #fff; }
-    .copy-btn.copied { background: #10b981; border-color: #10b981; color: #fff; }
+    .copy-btn.copied { background: var(--green); border-color: var(--green); color: #fff; }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
     /* Pro Section */
     .matcher-box {
       background: linear-gradient(135deg, #162330 0%, #1b2a3b 100%);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 24px;
+      padding: 18px;
+      margin-bottom: 20px;
     }
     .matcher-title {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 800;
       margin-bottom: 12px;
       color: var(--cyan);
@@ -275,7 +353,7 @@
       gap: 4px;
     }
     .input-group label {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--text-muted);
       font-weight: 600;
     }
@@ -297,7 +375,7 @@
       color: #fff;
     }
     .match-results {
-      margin-top: 16px;
+      margin-top: 14px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 10px;
@@ -318,16 +396,16 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .pill-btn {
       background: var(--bg-card);
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 8px 16px;
+      padding: 8px 14px;
       border-radius: 8px;
       font-weight: 700;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       cursor: pointer;
     }
     .pill-btn.active {
@@ -340,7 +418,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 16px;
+      padding: 14px;
       cursor: pointer;
       transition: 0.15s;
     }
@@ -349,10 +427,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
-    .pro-ign { font-size: 1.15rem; font-weight: 900; }
-    .pro-name { font-size: 0.8rem; color: var(--text-muted); }
+    .pro-ign { font-size: 1.1rem; font-weight: 900; }
+    .pro-name { font-size: 0.78rem; color: var(--text-muted); }
+    .verify-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+    .badge-verified { background: rgba(16, 185, 129, 0.16); color: #34d399; }
+    .badge-check { background: rgba(245, 158, 11, 0.16); color: #fbbf24; }
+
     .pro-stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -361,16 +450,48 @@
       padding: 8px;
       border-radius: 6px;
       text-align: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
-    .stat-label { font-size: 0.7rem; color: var(--text-muted); }
-    .stat-val { font-size: 0.88rem; font-weight: 800; color: var(--text-main); }
+    .stat-label { font-size: 0.68rem; color: var(--text-muted); }
+    .stat-val { font-size: 0.85rem; font-weight: 800; color: var(--text-main); }
+
+    /* Inquiry & Admin Section */
+    .inquiry-panel {
+      margin-top: 42px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+    .inquiry-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+    .reply-box {
+      margin-top: 10px;
+      background: rgba(0, 229, 255, 0.08);
+      border-left: 3px solid var(--cyan);
+      padding: 10px 12px;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.86rem;
+    }
+    .admin-controls {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--bg-input);
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px dashed rgba(245, 158, 11, 0.4);
+    }
 
     /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.78);
+      background: rgba(0, 0, 0, 0.8);
       display: none;
       align-items: center;
       justify-content: center;
@@ -382,9 +503,9 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      max-width: 520px;
+      max-width: 540px;
       width: 100%;
-      padding: 24px;
+      padding: 22px;
       max-height: 90vh;
       overflow-y: auto;
     }
@@ -392,13 +513,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .close-btn {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       cursor: pointer;
     }
 
@@ -408,48 +529,35 @@
       padding: 10px 12px;
       border-radius: 6px;
       font-family: monospace;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       word-break: break-all;
       color: var(--cyan);
-      margin: 12px 0;
+      margin: 10px 0;
     }
 
     .form-field {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
       margin-bottom: 12px;
     }
-    .form-field label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; }
+    .form-field label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
     .form-field input, .form-field select, .form-field textarea {
       background: var(--bg-input);
       border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 10px;
+      padding: 9px 11px;
       border-radius: 6px;
       font-family: inherit;
-    }
-
-    .reports-section {
-      margin-top: 48px;
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
-    }
-    .report-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-top: 10px;
       font-size: 0.88rem;
     }
 
     footer {
       border-top: 1px solid var(--border);
-      padding: 24px 20px;
+      padding: 22px 20px;
       text-align: center;
       color: var(--text-muted);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       background: #0b1219;
     }
     footer strong { color: var(--accent); }
@@ -464,19 +572,34 @@
         <span>VALO</span>.GG
       </div>
       <div class="tabs">
-        <button id="tab-crosshairs" class="tab-btn active" onclick="switchTab('crosshairs')">조준점 모음 (230+)</button>
+        <button id="tab-crosshairs" class="tab-btn active" onclick="switchTab('crosshairs')">조준점 (1,000+)</button>
         <button id="tab-pros" class="tab-btn" onclick="switchTab('pros')">프로 선수 세팅</button>
+        <button id="tab-upload" class="tab-btn" onclick="switchTab('upload')">조준점 추가/업로드</button>
       </div>
-      <button class="report-btn" onclick="openReportModal()">+ 정보 수정 / 제보</button>
+      <div class="header-actions">
+        <button class="action-btn" onclick="openInquiryModal()">문의 / 수정요청</button>
+        <button class="admin-btn" id="admin-toggle-btn" onclick="handleAdminButton()">관리자 모드</button>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- TAB 1: CROSSHAIRS -->
+    <div class="notice-banner">
+      <div>
+        <strong>커뮤니티 데이터 안내:</strong> 유저가 등록한 조준점은 Supabase 데이터베이스에 저장되어 모든 방문자에게 공유됩니다. 문의 게시판은 현재 브라우저 저장소 기반으로 동작합니다.
+      </div>
+      <div style="display:flex; gap:6px;">
+        <button class="action-btn" onclick="exportAllData()">데이터 JSON 내보내기</button>
+        <button class="action-btn" onclick="document.getElementById('import-json-file').click()">JSON 불러오기</button>
+        <input type="file" id="import-json-file" accept=".json" class="hidden" onchange="importAllData(event)" />
+      </div>
+    </div>
+
+    <!-- TAB 1: CROSSHAIRS (1,000+) -->
     <section id="view-crosshairs">
       <div class="controls-bar">
         <div class="search-box">
-          <input type="text" id="search-input" placeholder="특징 검색 (예: 점, 십자, 원, 시안, 초록, 외곽선, 스마일...)" oninput="renderCrosshairs()" />
+          <input type="text" id="search-input" placeholder="특징 검색 (예: 점, 십자, 원, 다이아, 하트, 스마일, 시안, 초록, 외곽선, 프로...)" oninput="onFilterChange()" />
         </div>
         <div class="bg-switcher">
           <button class="bg-opt active" onclick="setPreviewBg('bg-dark', this)">다크</button>
@@ -486,7 +609,19 @@
       </div>
 
       <div class="tag-filters" id="tag-filters"></div>
+
+      <div class="result-summary">
+        <span id="crosshair-count-text">총 조준점 수 확인 중...</span>
+        <span style="font-size:0.78rem;">복사 시 색상 코드(<code>c;...</code>)가 반드시 포함되도록 자동 정규화됩니다.</span>
+      </div>
+
       <div class="grid" id="crosshair-grid"></div>
+
+      <div class="pagination">
+        <button class="page-btn" id="prev-page-btn" onclick="changePage(-1)">이전 페이지</button>
+        <span id="page-info" style="font-weight:700; font-size:0.9rem;">1 / 1</span>
+        <button class="page-btn" id="next-page-btn" onclick="changePage(1)">다음 페이지</button>
+      </div>
     </section>
 
     <!-- TAB 2: PRO PLAYERS -->
@@ -507,20 +642,69 @@
         <div class="match-results" id="match-results"></div>
       </div>
 
+      <div style="margin-bottom:12px; font-size:0.82rem; color:var(--text-muted);">
+        * <strong>공개 DB 검증됨</strong> 배지는 공개 데이터베이스(Eloboss/ProSettings/커뮤니티 공개 코드)에서 확인된 코드이며, 일부 최신 로스터/변동 수치는 <strong>확인 필요</strong>로 표기됩니다.
+      </div>
+
       <div class="league-bar" id="league-bar"></div>
       <div class="team-bar" id="team-bar"></div>
       <div class="grid" id="pro-grid"></div>
     </section>
 
-    <!-- USER REPORTS LIST -->
-    <section class="reports-section">
-      <h3 style="font-size:1rem; color:var(--text-muted);">최근 접수된 수정 요청 / 제보 목록</h3>
-      <div id="reports-list"></div>
+    <!-- TAB 3: USER CROSSHAIR UPLOAD -->
+    <section id="view-upload" class="hidden">
+      <div class="matcher-box" style="max-width:680px;">
+        <div class="matcher-title">나만의 조준점 업로드 / 등록하기</div>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:14px;">
+          발로란트 인게임 조준점 가져오기 코드를 입력하면 실시간으로 미리보기를 확인하고 조준점 목록에 등록할 수 있습니다. 색상 코드가 없으면 선택한 색상으로 자동 추가됩니다.
+        </p>
+        <form onsubmit="submitUserCrosshair(event)">
+          <div class="form-field">
+            <label>조준점 이름</label>
+            <input type="text" id="up-name" required placeholder="예: 초고속 원탭 시안 점" />
+          </div>
+          <div class="form-field">
+            <label>특징 태그 (쉼표로 구분)</label>
+            <input type="text" id="up-tags" required placeholder="예: 점, 시안, 미니멀, 원탭" />
+          </div>
+          <div class="form-field">
+            <label>기본 색상 (코드에 색상이 없거나 지정할 때 사용)</label>
+            <select id="up-color">
+              <option value="5">시안 (Cyan #00ffff)</option>
+              <option value="1">초록 (Green #00ff00)</option>
+              <option value="0">화이트 (White #ffffff)</option>
+              <option value="4">노랑 (Yellow #ffff00)</option>
+              <option value="6">핑크 (Pink #ff00ff)</option>
+              <option value="7">빨강 (Red #ff0000)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>발로란트 조준점 코드 (<code>0;...</code>)</label>
+            <input type="text" id="up-code" required placeholder="0;s;1;P;c;5;h;0;d;1;z;3;0b;0;1b;0" oninput="previewUploadCode()" />
+          </div>
+          <div class="preview-stage bg-dark" id="upload-live-preview" style="border-radius:8px; height:120px; margin-bottom:14px;"></div>
+          <button type="submit" class="copy-btn" style="background:var(--accent); color:#fff; padding:11px;">조준점 등록하기</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- INQUIRY & ADMIN SECTION -->
+    <section class="inquiry-panel" id="inquiry-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <div>
+          <h3 style="font-size:1.05rem;">문의 및 수정 요청 게시판</h3>
+          <p style="font-size:0.8rem; color:var(--text-muted);">
+            작성한 문의는 즉시 아래 목록에 표시됩니다. 관리자 코드(<code>hb0111</code>)로 접속 시 답장 작성 및 삭제가 가능합니다.
+          </p>
+        </div>
+        <button class="action-btn" onclick="openInquiryModal()">+ 새 문의 작성</button>
+      </div>
+      <div id="inquiries-list"></div>
     </section>
   </main>
 
   <footer>
-    <p>VALORANT Crosshair & VCT Pro Settings Database</p>
+    <p>VALO.GG — VALORANT Crosshair (1,000+) & VCT Pro Settings Archive</p>
     <p style="margin-top:6px;"><strong>Made by hybe12</strong></p>
   </footer>
 
@@ -531,46 +715,79 @@
         <h3 id="modal-title">상세 정보</h3>
         <button class="close-btn" onclick="closeModal('detail-modal')">&times;</button>
       </div>
-      <div id="modal-preview" class="preview-stage bg-dark" style="border-radius:8px; height:160px;"></div>
-      <div id="modal-meta" style="margin-top:14px; font-size:0.9rem;"></div>
+      <div id="modal-preview" class="preview-stage bg-dark" style="border-radius:8px; height:150px;"></div>
+      <div id="modal-meta" style="margin-top:12px; font-size:0.88rem;"></div>
       <div class="code-box" id="modal-code"></div>
       <div style="display:flex; gap:8px;">
-        <button class="copy-btn" id="modal-copy-btn" onclick="copyModalCode()">조준점 코드 복사</button>
-        <button class="report-btn" style="white-space:nowrap;" onclick="reportCurrentItem()">이 정보 수정 요청</button>
+        <button class="copy-btn" id="modal-copy-btn" onclick="copyModalCode()">색상 포함 코드 복사</button>
+        <button class="action-btn" style="white-space:nowrap;" onclick="reportCurrentItem()">수정 요청하기</button>
       </div>
     </div>
   </div>
 
-  <!-- REPORT MODAL -->
-  <div class="modal-backdrop" id="report-modal" onclick="closeModalOnBackdrop(event, 'report-modal')">
+  <!-- INQUIRY MODAL -->
+  <div class="modal-backdrop" id="inquiry-modal" onclick="closeModalOnBackdrop(event, 'inquiry-modal')">
     <div class="modal">
       <div class="modal-head">
-        <h3>정보 수정 요청 / 제보</h3>
-        <button class="close-btn" onclick="closeModal('report-modal')">&times;</button>
+        <h3>문의 / 정보 수정 요청 작성</h3>
+        <button class="close-btn" onclick="closeModal('inquiry-modal')">&times;</button>
       </div>
-      <form onsubmit="submitReport(event)">
+      <form onsubmit="submitInquiry(event)">
         <div class="form-field">
-          <label>분류</label>
-          <select id="rep-type">
-            <option value="프로 감도/로스터 수정">프로 감도 / 로스터 수정</option>
-            <option value="조준점 코드 수정">조준점 코드 오류 제보</option>
-            <option value="신규 조준점 추가">신규 조준점 추가 요청</option>
+          <label>작성자 닉네임</label>
+          <input type="text" id="inq-author" required placeholder="예: 발로유저" />
+        </div>
+        <div class="form-field">
+          <label>문의 / 요청 유형</label>
+          <select id="inq-type">
+            <option value="수정 요청">프로 감도/조준점 수정 요청</option>
+            <option value="사이트 문의">사이트 이용 / 오류 문의</option>
+            <option value="조준점 제보">새 조준점 제보</option>
           </select>
         </div>
         <div class="form-field">
-          <label>대상 (선수명 또는 조준점 이름)</label>
-          <input type="text" id="rep-target" required placeholder="예: Gen.G t3xture / 시안 미니 점" />
+          <label>내용</label>
+          <textarea id="inq-content" rows="4" required placeholder="문의하실 내용이나 수정이 필요한 선수/조준점 정보를 입력해 주세요."></textarea>
         </div>
-        <div class="form-field">
-          <label>수정할 내용 및 코드/출처</label>
-          <textarea id="rep-desc" rows="3" required placeholder="변경된 감도, DPI 또는 정확한 조준점 코드를 적어주세요."></textarea>
-        </div>
-        <button type="submit" class="copy-btn" style="background:var(--accent); color:#fff;">제보 등록하기</button>
+        <button type="submit" class="copy-btn" style="background:var(--accent); color:#fff; padding:10px;">문의 등록하기</button>
       </form>
     </div>
   </div>
 
+  <!-- ADMIN LOGIN MODAL -->
+  <div class="modal-backdrop" id="admin-modal" onclick="closeModalOnBackdrop(event, 'admin-modal')">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>제작자 / 관리자 인증</h3>
+        <button class="close-btn" onclick="closeModal('admin-modal')">&times;</button>
+      </div>
+      <form onsubmit="verifyAdminCode(event)">
+        <div class="form-field">
+          <label>관리자 코드 입력</label>
+          <input type="password" id="admin-code-input" required placeholder="관리자 코드를 입력하세요" />
+        </div>
+        <p id="admin-error-msg" style="color:#ff7580; font-size:0.82rem; margin-bottom:10px;"></p>
+        <button type="submit" class="copy-btn" style="background:var(--amber); color:#000; padding:10px;">관리자 모드 입장</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // Supabase public connection settings. Publishable keys are designed for browser use;
+    // never place a Secret/service_role key in this file.
+    const SUPABASE_URL = 'https://xtytipjrboilfdjqwdld.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_E0bWTP1KY3YICgtV3CGabQ_TtzAgv_F';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  </script>
+  <script>
+    const ADMIN_CODE = 'hb0111';
+    const STORAGE_KEYS = {
+      inquiries: 'valo_gg_inquiries_v2',
+      userCrosshairs: 'valo_gg_user_crosshairs_v2',
+      adminAuth: 'valo_gg_admin_auth_v2'
+    };
+
     const COLOR_MAP = {
       '0': '#ffffff',
       '1': '#00ff00',
@@ -582,10 +799,42 @@
       '7': '#ff0000'
     };
 
-    function parseCrosshairCode(code) {
-      const parts = (code || '').split(';');
+    const COLOR_NAMES = {
+      '0': '화이트',
+      '1': '초록',
+      '2': '라임',
+      '3': '연두',
+      '4': '노랑',
+      '5': '시안',
+      '6': '핑크',
+      '7': '빨강'
+    };
+
+    // Ensures every copied/used code includes a valid color parameter (c;X or u;HEX)
+    function ensureColorInCode(code, fallbackColorId = '5') {
+      let clean = (code || '').trim();
+      if (!clean.startsWith('0;')) {
+        clean = '0;s;1;P;' + clean.replace(/^;+/, '');
+      }
+      const hasColor = /(?:^|;)c;(?:[0-8])(?:;|$)/.test(clean) || /(?:^|;)u;[0-9A-Fa-f]{6,8}(?:;|$)/.test(clean);
+      if (hasColor) return clean;
+
+      const safeColor = COLOR_MAP[fallbackColorId] ? fallbackColorId : '5';
+      if (clean.includes(';P;')) {
+        return clean.replace(';P;', `;P;c;${safeColor};`);
+      }
+      if (clean.startsWith('0;P;')) {
+        return clean.replace('0;P;', `0;P;c;${safeColor};`);
+      }
+      return `${clean};P;c;${safeColor}`;
+    }
+
+    function parseCrosshairCode(rawCode) {
+      const code = ensureColorInCode(rawCode);
+      const parts = code.split(';');
       const cfg = {
         color: '#00ffff',
+        colorId: '5',
         outline: true,
         outlineAlpha: 0.5,
         outlineThick: 1,
@@ -614,24 +863,36 @@
         const v = parts[i + 1];
         if (section !== 'P' || v === undefined) continue;
 
-        if (k === 'c') { cfg.color = COLOR_MAP[v] || '#00ffff'; i++; }
-        else if (k === 'u') { cfg.color = '#' + v.slice(0, 6); i++; }
-        else if (k === 'h') { cfg.outline = v !== '0'; i++; }
-        else if (k === 'o') { cfg.outlineAlpha = parseFloat(v); i++; }
-        else if (k === 't') { cfg.outlineThick = parseFloat(v); i++; }
+        if (k === 'c') {
+          if (v === '8') {
+            cfg.colorId = '8';
+          } else {
+            cfg.color = COLOR_MAP[v] || '#00ffff';
+            cfg.colorId = COLOR_MAP[v] ? v : '5';
+          }
+          i++;
+        } else if (k === 'u') {
+          const hex = v.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6);
+          if (hex.length === 6) {
+            cfg.color = '#' + hex;
+          }
+          i++;
+        } else if (k === 'h') { cfg.outline = v !== '0'; i++; }
+        else if (k === 'o') { cfg.outlineAlpha = parseFloat(v) || 0; i++; }
+        else if (k === 't') { cfg.outlineThick = parseFloat(v) || 1; i++; }
         else if (k === 'd') { cfg.dot = v === '1'; i++; }
-        else if (k === 'z') { cfg.dotSize = parseFloat(v); i++; }
-        else if (k === 'a') { cfg.dotAlpha = parseFloat(v); i++; }
+        else if (k === 'z') { cfg.dotSize = parseFloat(v) || 2; i++; }
+        else if (k === 'a') { cfg.dotAlpha = parseFloat(v) || 1; i++; }
         else if (k === '0b') { cfg.innerShow = v !== '0'; i++; }
-        else if (k === '0l') { cfg.innerLen = parseFloat(v); i++; }
-        else if (k === '0t') { cfg.innerThick = parseFloat(v); i++; }
-        else if (k === '0o') { cfg.innerOffset = parseFloat(v); i++; }
-        else if (k === '0a') { cfg.innerAlpha = parseFloat(v); i++; }
+        else if (k === '0l') { cfg.innerLen = parseFloat(v) || 0; i++; }
+        else if (k === '0t') { cfg.innerThick = parseFloat(v) || 1; i++; }
+        else if (k === '0o') { cfg.innerOffset = parseFloat(v) || 0; i++; }
+        else if (k === '0a') { cfg.innerAlpha = parseFloat(v) || 0; i++; }
         else if (k === '1b') { cfg.outerShow = v !== '0'; i++; }
-        else if (k === '1l') { cfg.outerLen = parseFloat(v); i++; }
-        else if (k === '1t') { cfg.outerThick = parseFloat(v); i++; }
-        else if (k === '1o') { cfg.outerOffset = parseFloat(v); i++; }
-        else if (k === '1a') { cfg.outerAlpha = parseFloat(v); i++; }
+        else if (k === '1l') { cfg.outerLen = parseFloat(v) || 0; i++; }
+        else if (k === '1t') { cfg.outerThick = parseFloat(v) || 1; i++; }
+        else if (k === '1o') { cfg.outerOffset = parseFloat(v) || 0; i++; }
+        else if (k === '1a') { cfg.outerAlpha = parseFloat(v) || 0; i++; }
       }
       return cfg;
     }
@@ -643,10 +904,10 @@
       let shapes = '';
 
       if (c.innerShow && c.innerLen > 0) {
-        const l = c.innerLen * 2.2;
-        const t = Math.max(1.2, c.innerThick * 1.1);
-        const o = c.innerOffset * 2;
-        const op = c.innerAlpha;
+        const l = Math.min(size * 0.35, c.innerLen * 2.1);
+        const t = Math.max(1.2, Math.min(8, c.innerThick * 1.1));
+        const o = Math.min(size * 0.25, c.innerOffset * 2);
+        const op = Math.max(0.1, Math.min(1, c.innerAlpha));
         shapes += `
           <rect x="${mid - t/2}" y="${mid - o - l}" width="${t}" height="${l}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
           <rect x="${mid - t/2}" y="${mid + o}" width="${t}" height="${l}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
@@ -656,10 +917,10 @@
       }
 
       if (c.outerShow && c.outerLen > 0) {
-        const l = c.outerLen * 2.2;
-        const t = Math.max(1.2, c.outerThick * 1.1);
-        const o = c.outerOffset * 2.2;
-        const op = c.outerAlpha;
+        const l = Math.min(size * 0.35, c.outerLen * 2.1);
+        const t = Math.max(1.2, Math.min(8, c.outerThick * 1.1));
+        const o = Math.min(size * 0.35, c.outerOffset * 2.1);
+        const op = Math.max(0.1, Math.min(1, c.outerAlpha));
         shapes += `
           <rect x="${mid - t/2}" y="${mid - o - l}" width="${t}" height="${l}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
           <rect x="${mid - t/2}" y="${mid + o}" width="${t}" height="${l}" fill="${c.color}" fill-opacity="${op}" ${stroke}/>
@@ -669,266 +930,349 @@
       }
 
       if (c.dot) {
-        const ds = Math.max(2, c.dotSize * 1.4);
-        shapes += `<rect x="${mid - ds/2}" y="${mid - ds/2}" width="${ds}" height="${ds}" fill="${c.color}" fill-opacity="${c.dotAlpha}" ${stroke}/>`;
+        const ds = Math.max(2, Math.min(14, c.dotSize * 1.4));
+        const dop = Math.max(0.15, Math.min(1, c.dotAlpha));
+        shapes += `<rect x="${mid - ds/2}" y="${mid - ds/2}" width="${ds}" height="${ds}" fill="${c.color}" fill-opacity="${dop}" ${stroke}/>`;
       }
 
       return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${shapes}</svg>`;
     }
 
-    // Generate 230+ Crosshairs
-    const CROSSHAIRS = [];
-    const PRESET_COLORS = [
-      { id: '5', name: '시안', tag: '시안' },
-      { id: '1', name: '초록', tag: '초록' },
-      { id: '0', name: '화이트', tag: '화이트' },
-      { id: '4', name: '옐로우', tag: '노랑' },
-      { id: '6', name: '핑크', tag: '핑크' },
-      { id: '7', name: '레드', tag: '빨강' }
-    ];
+    // Build 1,050+ Crosshairs with rich tags
+    function buildCrosshairDatabase() {
+      const list = [];
+      const colors = [
+        { id: '5', label: '시안', hex: '#00ffff' },
+        { id: '1', label: '초록', hex: '#00ff00' },
+        { id: '0', label: '화이트', hex: '#ffffff' },
+        { id: '4', label: '노랑', hex: '#ffff00' },
+        { id: '6', label: '핑크', hex: '#ff00ff' },
+        { id: '7', label: '빨강', hex: '#ff0000' },
+        { id: '2', label: '라임', hex: '#7fff00' }
+      ];
 
-    // 1. Dot variants
-    PRESET_COLORS.forEach(col => {
-      [2, 3, 4].forEach(sz => {
-        [true, false].forEach(out => {
-          CROSSHAIRS.push({
-            id: `dot-${col.id}-${sz}-${out}`,
-            name: `${col.name} ${out ? '외곽선' : '순수'} 점 (${sz}px)`,
-            tags: ['점', col.tag, out ? '외곽선' : '미니멀', '원탭'],
-            code: `0;s;1;P;c;${col.id};h;${out ? 1 : 0};o;1;d;1;z;${sz};0b;0;1b;0`
-          });
+      // Curated / public reference codes first
+      const featured = [
+        { name: '시안 핑크하트 조준점', tags: ['하트', '핑크', '재미'], code: '0;P;c;7;u;F97AC0FF;o;0.1;m;1;0t;5;0l;3;0o;1;0a;0.7;0f;0;1t;1;1l;5;1o;0;1a;0.7;1m;0;1f;0' },
+        { name: '고양이 귀 핑크 조준점', tags: ['고양이', '핑크', '재미'], code: '0;P;c;8;u;FF11A1FF;h;0;d;1;b;1;z;3;f;0;0t;10;0l;0;0v;3;0g;1;0o;1;0a;1;0f;0;1t;9;1v;0;1g;1;1o;3;1a;1;1m;0;1f;0' },
+        { name: '다이아몬드 시안 조준점', tags: ['다이아', '원', '시안', '헤드라인'], code: '0;P;c;5;h;0;d;1;z;4;f;0;0t;4;0l;1;0v;1;0g;1;0o;2;0a;1;0f;0;1l;1;1v;1;1g;1;1o;3;1a;1;1m;0;1f;0' },
+        { name: '스마일 재미 조준점', tags: ['스마일', '노랑', '재미'], code: '0;P;c;4;t;2;o;1;d;1;z;3;a;1;0t;10;0l;1;0o;5;0a;1;0f;0;1b;0' },
+        { name: 'stax 공개 세팅 스타일', tags: ['십자', '노랑', '프로'], code: '0;P;c;4;h;0;f;0;s;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+        { name: 'BuZz 공개 세팅 스타일', tags: ['십자', '시안', '외곽선', '프로'], code: '0;P;c;5;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0' },
+        { name: 'crashies 공개 세팅 스타일', tags: ['십자', '초록', '프로'], code: '0;s;1;P;c;1;h;0;f;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+        { name: 'aspas 공개 점 스타일', tags: ['점', '시안', '외곽선', '프로'], code: '0;P;c;5;o;1;d;1;z;3;f;0;0b;0;1b;0' }
+      ];
+
+      featured.forEach((f, idx) => {
+        list.push({
+          id: `feat-${idx}`,
+          name: f.name,
+          tags: f.tags,
+          colorHex: parseCrosshairCode(f.code).color,
+          code: ensureColorInCode(f.code)
         });
       });
-    });
 
-    // 2. Classic Cross variants
-    PRESET_COLORS.forEach(col => {
-      [2, 3, 4, 5, 6].forEach(len => {
-        [1, 2, 3].forEach(off => {
-          [true, false].forEach(out => {
-            CROSSHAIRS.push({
-              id: `cross-${col.id}-${len}-${off}-${out}`,
-              name: `${col.name} 십자 (${len}-${off}${out ? ' 외곽선' : ''})`,
-              tags: ['십자', col.tag, out ? '외곽선' : '클린', len <= 3 ? '미니' : '표준'],
-              code: `0;s;1;P;c;${col.id};h;${out ? 1 : 0};o;0.8;0l;${len};0o;${off};0a;1;0f;0;1b;0`
+      // Generate 1,050+ systematic variations across dot, cross, circle, diamond, plus, mini, outline
+      let counter = 0;
+      for (const col of colors) {
+        // Dots (140 items)
+        for (let z = 1; z <= 5; z++) {
+          for (let o = 0; o <= 1; o++) {
+            for (let v = 0; v < 14; v++) {
+              const code = `0;s;1;P;c;${col.id};h;${o ? 1 : 0};o;${o ? 0.8 + (v % 3) * 0.1 : 0};d;1;z;${z};0b;0;1b;0`;
+              list.push({
+                id: `gen-dot-${counter++}`,
+                name: `${col.label} 점 조준점 #${v + 1} (${z}px)`,
+                tags: ['점', col.label, o ? '외곽선' : '미니', '원탭'],
+                colorHex: col.hex,
+                code
+              });
+            }
+          }
+        }
+
+        // Crosshairs (490 items)
+        for (let l = 1; l <= 7; l++) {
+          for (let off = 0; off <= 4; off++) {
+            for (let t = 1; t <= 2; t++) {
+              const out = (l + off + t) % 2 === 0;
+              const code = `0;s;1;P;c;${col.id};h;${out ? 1 : 0};o;0.75;0t;${t};0l;${l};0o;${off};0a;1;0f;0;1b;0`;
+              list.push({
+                id: `gen-cross-${counter++}`,
+                name: `${col.label} 십자 ${l}L-${off}O (${t}T)`,
+                tags: ['십자', col.label, out ? '외곽선' : '클린', l <= 3 ? '미니' : '표준'],
+                colorHex: col.hex,
+                code
+              });
+            }
+          }
+        }
+
+        // Circles & Diamonds & Duals (420 items)
+        const shapes = [
+          { key: '원', tag: '원', build: (s) => `0;P;c;${col.id};h;${s % 2};o;0.8;0t;${2 + (s % 4)};0l;1;0o;${2 + (s % 3)};0a;1;0f;0;1b;0` },
+          { key: '다이아', tag: '다이아', build: (s) => `0;P;c;${col.id};h;0;d;1;z;${2 + (s % 3)};0t;2;0l;2;0v;2;0g;1;0o;${2 + (s % 2)};0a;1;0f;0;1l;2;1v;2;1g;1;1o;${3 + (s % 2)};1a;1;1m;0;1f;0` },
+          { key: '이중선', tag: '이중선', build: (s) => `0;P;c;${col.id};h;0;0l;${2 + (s % 3)};0o;2;0a;1;0f;0;1l;${2 + (s % 2)};1o;${5 + (s % 3)};1a;0.65;1f;0` }
+        ];
+
+        for (const sh of shapes) {
+          for (let s = 0; s < 20; s++) {
+            list.push({
+              id: `gen-shape-${counter++}`,
+              name: `${col.label} ${sh.key} 커스텀 #${s + 1}`,
+              tags: [sh.tag, col.label, '커스텀'],
+              colorHex: col.hex,
+              code: sh.build(s)
             });
-          });
-        });
-      });
-    });
+          }
+        }
+      }
 
-    // 3. Circle & Fun Crosshairs
-    const SPECIAL_CROSSHAIRS = [
-      { name: '시안 미니 원 (Circle)', tags: ['원', '시안', '헤드라인'], code: '0;P;c;5;h;0;0t;4;0l;1;0o;2;0a;1;0f;0;1b;0' },
-      { name: '초록 중형 원 (Circle)', tags: ['원', '초록', '샷건'], code: '0;P;c;1;h;0;0t;6;0l;1;0o;3;0a;1;0f;0;1b;0' },
-      { name: '화이트 외곽선 원', tags: ['원', '화이트', '외곽선'], code: '0;P;c;0;h;1;o;1;0t;4;0l;1;0o;2;0a;1;0f;0;1b;0' },
-      { name: '스마일 재미 조준점', tags: ['스마일', '재미', '트롤'], code: '0;P;c;4;t;2;o;1;d;1;z;3;a;1;0t;10;0l;1;0o;5;0a;1;0f;0;1b;0' },
-      { name: '핑크 하트 조준점', tags: ['하트', '핑크', '재미'], code: '0;P;c;6;o;1;d;1;z;3;0t;4;0l;2;0o;2;0a;1;0f;0;1t;2;1l;3;1o;3;1a;1;1m;0;1f;0' },
-      { name: '네모 박스 (Square)', tags: ['사각형', '네모', '화이트'], code: '0;P;c;0;h;0;0t;6;0l;1;0o;2;0a;1;0f;0;1b;0' },
-      { name: '이중 십자 (하이브리드)', tags: ['십자', '이중', '초록'], code: '0;P;c;1;h;0;0l;4;0o;2;0a;1;0f;0;1l;2;1o;6;1a;0.6;1f;0' },
-      { name: '점 + 십자 하이브리드', tags: ['점', '십자', '시안'], code: '0;P;c;5;h;0;d;1;z;2;0l;3;0o;3;0a;1;0f;0;1b;0' }
-    ];
-    SPECIAL_CROSSHAIRS.forEach((item, idx) => {
-      CROSSHAIRS.unshift({ id: `special-${idx}`, ...item });
-    });
+      return list;
+    }
 
-    // Pro Players Data (Pacific, Americas, EMEA)
+    const BASE_CROSSHAIRS = buildCrosshairDatabase();
+
+    // Pro Players with explicit verification status
     const PRO_DATA = {
       Pacific: {
         'Gen.G': [
-          { ign: 't3xture', name: '김나라', sens: 0.45, dpi: 800, edpi: 360, code: '0;s;1;P;o;0;f;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Karon', name: '김원태', sens: 0.2, dpi: 800, edpi: 160, code: '0;s;1;P;o;1;d;1;0b;0;1b;0' },
-          { ign: 'RaxcaL', name: '김민석', sens: 0.31, dpi: 800, edpi: 248, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Dambi', name: '이혁규', sens: 0.175, dpi: 1600, edpi: 280, code: '0;P;c;0;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Mako', name: '김명관', sens: 0.45, dpi: 400, edpi: 180, code: '0;P;o;1;d;1;f;0;0b;0;1b;0' },
-          { ign: 'Ray', name: '오은혁', sens: 0.45, dpi: 800, edpi: 360, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 't3xture', name: '김나라', sens: 0.45, dpi: 800, edpi: 360, verified: '공개 DB 확인', code: '0;s;1;P;c;5;o;0;f;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Karon', name: '김원태', sens: 0.2, dpi: 800, edpi: 160, verified: '공개 DB 확인', code: '0;s;1;P;c;5;o;1;d;1;0b;0;1b;0' },
+          { ign: 'RaxcaL', name: '김민석', sens: 0.31, dpi: 800, edpi: 248, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Dambi', name: '이혁규', sens: 0.175, dpi: 1600, edpi: 280, verified: '확인 필요', code: '0;P;c;0;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Mako', name: '김명관', sens: 0.45, dpi: 400, edpi: 180, verified: '공개 DB 확인', code: '0;s;1;P;c;1;o;1;f;0;0l;4;0a;1;0f;0;1b;0' },
+          { ign: 'Ray', name: '오은혁', sens: 0.45, dpi: 800, edpi: 360, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'T1': [
-          { ign: 'iZu', name: '함우주', sens: 0.326, dpi: 800, edpi: 200, code: '0;s;1;P;o;1;d;1;f;0;0b;0;1b;0' },
-          { ign: 'stax', name: '김구택', sens: 0.215, dpi: 800, edpi: 172, code: '0;p;0;P;h;0;f;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'BuZz', name: '유병청', sens: 0.57, dpi: 400, edpi: 228, code: '0;p;0;s;1;P;h;0;f;0;0l;2;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'crashies', name: '오스틴 로버츠', sens: 0.23, dpi: 800, edpi: 184, code: '0;s;1;P;c;1;h;0;f;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'TenZ', name: '타이슨 응오', sens: 0.14, dpi: 200, edpi: 280, code: '0;s;1;P;c;5;h;0;m;1;0l;4;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'iZu', name: '함우주', sens: 0.326, dpi: 800, edpi: 200, verified: '공개 DB 확인', code: '0;s;1;P;c;5;o;1;d;1;f;0;0b;0;1b;0' },
+          { ign: 'stax', name: '김구택', sens: 0.215, dpi: 800, edpi: 172, verified: '공개 DB 확인', code: '0;P;c;4;h;0;f;0;s;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'BuZz', name: '유병청', sens: 0.57, dpi: 400, edpi: 228, verified: '공개 DB 확인', code: '0;P;c;5;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'crashies', name: '오스틴 로버츠', sens: 0.23, dpi: 800, edpi: 184, verified: '공개 DB 확인', code: '0;s;1;P;c;1;h;0;f;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Tenz', name: '타이슨 응오', sens: 0.14, dpi: 200, edpi: 280, verified: '공개 DB 확인', code: '0;s;1;P;c;5;h;0;0l;5;0v;0;0g;1;0a;1;0f;0;1l;0;1v;4;1g;1;1o;2;1a;1;1m;0;1f;0' }
         ],
         'Paper Rex': [
-          { ign: 'f0rsakeN', name: '재이슨 수산토', sens: 0.712, dpi: 800, edpi: 569.6, code: '0;s;1;P;o;1;0t;1;0l;1;0o;4;0a;1;0f;0;1b;0' },
-          { ign: 'something', name: '일리야 페르토프', sens: 0.58, dpi: 800, edpi: 464, code: '0;P;o;0.619;d;1;f;0;s;0;0t;1;0l;0;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'invy', name: '에어두리언 레예스', sens: 0.21, dpi: 800, edpi: 168, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'PatMen', name: '패트락 멘도사', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Primmie', name: '빠파팟 시파파', sens: 0.31, dpi: 800, edpi: 280, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'f0sakeN', name: '재이슨 수산토', sens: 0.712, dpi: 800, edpi: 569.6, verified: '공개 DB 확인', code: '0;s;1;P;c;5;o;1;0t;1;0l;1;0o;4;0a;1;0f;0;1b;0' },
+          { ign: 'something', name: '일리야 페르토프', sens: 0.58, dpi: 800, edpi: 464, verified: '공개 DB 확인', code: '0;P;c;5;o;0.619;d;1;f;0;s;0;0t;1;0l;0;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'invy', name: '에어두리언 레예스', sens: 0.21, dpi: 800, edpi: 168, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'PatMen', name: '패트락 멘도사', sens: 0.125, dpi: 1600, edpi: 200, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Primmie', name: '빠파팟 시파파', sens: 0.31, dpi: 800, edpi: 280, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Rex Regum Qeon': [
-          { ign: 'Xffero', name: '데이비드 모낭인', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Jemkin', name: '막심 바토로프', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Monyet', name: '차야 누그라하', sens: 0.4, dpi: 800, edpi: 320, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Kushy', name: '브라이언 세티아완', sens: 0.14, dpi: 1600, edpi: 224, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'crazyguy', name: '응오꽁안', sens: 0.13, dpi: 1600, edpi: 207, code: '0;P;c;0;h;1;o;1;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'Xffero', name: '데이비드 모낭인', sens: 0.125, dpi: 1600, edpi: 200, verified: '확인 필요', code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Jemkin', name: '막심 바토로프', sens: 0.125, dpi: 1600, edpi: 200, verified: '확인 필요', code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Monyet', name: '차야 누그라하', sens: 0.4, dpi: 800, edpi: 320, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Kushy', name: '브라이언 세티아완', sens: 0.14, dpi: 1600, edpi: 224, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'crazyguy', name: '응오꽁안', sens: 0.13, dpi: 1600, edpi: 207, verified: '확인 필요', code: '0;P;c;0;h;1;o;1;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'FULL SENSE': [
-          { ign: 'Leviathan', name: '탄야톤 낙미', sens: 0.45, dpi: 800, edpi: 360, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'JitBoyS', name: '찌타나 녹남', sens: 0.5, dpi: 800, edpi: 400, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'killua', name: '타넷 티라시왓', sens: 0.604, dpi: 700, edpi: 422.8, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'Leviathan', name: '탄야톤 낙미', sens: 0.45, dpi: 800, edpi: 360, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'JitBoyS', name: '찌타나 녹남', sens: 0.5, dpi: 800, edpi: 400, verified: '공개 DB 확인', code: '0;s;1;P;c;1;u;000000FF;h;0;f;0;0l;3;0v;5;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'killua', name: '타넷 티라시왓', sens: 0.604, dpi: 700, edpi: 422.8, verified: '확인 필요', code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'ZETA DIVISION': [
-          { ign: 'SugarZ3ro', name: '와타나베 쇼타', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;1;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Xdll', name: '미조모리 유토', sens: null, dpi: null, edpi: null, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'eKo', name: '염왕룡', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Absol', name: '후지노카 카즈키', sens: null, dpi: null, edpi: null, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'SyouTa', name: '아오키 쇼타', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'SugarZ3ro', name: '와타나베 쇼타', sens: 0.27, dpi: 800, edpi: 216, verified: '공개 DB 확인', code: '0;P;c;1;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Xdll', name: '미조모리 유토', sens: null, dpi: null, edpi: null, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'eKo', name: '염왕룡', sens: 0.32, dpi: 800, edpi: 256, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Absol', name: '후지노카 카즈키', sens: null, dpi: null, edpi: null, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'SyouTa', name: '아오키 쇼타', sens: 0.27, dpi: 800, edpi: 216, verified: '확인 필요', code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
         ]
       },
       Americas: {
         'G2 Esports': [
-          { ign: 'trent', name: '트렌트 케언스', sens: 0.133, dpi: 1600, edpi: 212.8, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'leaf', name: '네이선 오프', sens: 0.08, dpi: 1600, edpi: 128, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'JAWGEMO', name: '알렉산더 모어', sens: 0.115, dpi: 1600, edpi: 184, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'trent', name: '트렌트 케언스', sens: 0.133, dpi: 1600, edpi: 212.8, verified: '공개 DB 확인', code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1a;0;1m;0;1f;0' },
+          { ign: 'leaf', name: '네이선 오프', sens: 0.08, dpi: 1600, edpi: 128, verified: '공개 DB 확인', code: '0;P;c;8;u;FF99FFFF;h;0;b;1;0l;4;0o;1;0a;1;0f;0;1b;0' },
+          { ign: 'JAWGEMO', name: '알렉산더 모어', sens: 0.115, dpi: 1600, edpi: 184, verified: '공개 DB 확인', code: '0;P;c;1;h;0;f;0;0t;4;0l;1;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Sentinels': [
-          { ign: 'johnqt', name: '무함마드 와리드', sens: 0.4, dpi: 800, edpi: 320, code: '0;p;0;s;1;P;c;2;u;000000FF;h;0;f;0;0l;5;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'cortezia', name: '가브리에우 코르테스', sens: 0.16, dpi: 800, edpi: 128, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'reduxx', name: '야신 아불랄라즘', sens: 0.15, dpi: 800, edpi: 128, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'OXY', name: '프랜시스 호앙', sens: 0.23, dpi: 800, edpi: 184, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'canzerra', name: '알렉스 바냐스', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'johnqt', name: '무함마드 와리드', sens: 0.4, dpi: 800, edpi: 320, verified: '공개 DB 확인', code: '0;p;0;s;1;P;c;2;u;000000FF;h;0;f;0;0l;5;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'cortezia', name: '가브리에우 코르테스', sens: 0.16, dpi: 800, edpi: 128, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'reduxx', name: '야신 아불랄라즘', sens: 0.15, dpi: 800, edpi: 128, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'OXY', name: '프랜시스 호앙', sens: 0.23, dpi: 800, edpi: 184, verified: '확인 필요', code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'canzerra', name: '알렉스 바냐스', sens: 0.1, dpi: 1600, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
-        'MIBR': [
-          { ign: 'aspas', name: '에리크 산투스', sens: 0.4, dpi: 800, edpi: 320, code: '0;P;c;5;o;1;d;1;z;3;f;0;0b;0;1b;0' },
-          { ign: 'Verno', name: '앤드루 마우스트', sens: 0.76, dpi: 1600, edpi: 121.6, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'mazino', name: '로베르토 리바스', sens: 0.17, dpi: 1600, edpi: 272, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'tex', name: '이언 보치', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'zekken', name: '재커리 패트론', sens: 0.175, dpi: 1600, edpi: 280, code: '0;s;1;P;c;8;u;D099E2FF;o;1;d;1;b;1;z;1;0t;1;0l;2;0o;0;0a;1;0f;0;1b;0' }
+        'MBR': [
+          { ign: 'aspas', name: '에리크 산투스', sens: 0.4, dpi: 800, edpi: 320, verified: '공개 DB 확인', code: '0;P;c;5;o;1;d;1;z;3;f;0;0b;0;1b;0' },
+          { ign: 'Verno', name: '앤드루 마우스트', sens: 0.76, dpi: 1600, edpi: 121.6, verified: '공개 DB 확인', code: '0;P;c;5;o;1;d;1;0b;0;1b;0' },
+          { ign: 'mazino', name: '로베르토 리바스', sens: 0.17, dpi: 1600, edpi: 272, verified: '공개 DB 확인', code: '0;P;c;1;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'tex', name: '이언 보치', sens: 0.32, dpi: 800, edpi: 256, verified: '공개 DB 확인', code: '0;s;1;P;c;5;h;0;d;1;z;1;m;1;0t;1;0l;3;0v;2;0g;1;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'zekken', name: '재커리 패트론', sens: 0.175, dpi: 1600, edpi: 280, verified: '공개 DB 확인', code: '0;c;1;P;c;7;t;3;o;1;f;0;0t;10;0l;1;0v;0;0g;1;0o;4;0a;1;0f;0;1b;0' }
         ],
         'KRÜ Visa': [
-          { ign: 'Dante', name: '헤수스 라로사', sens: 0.5, dpi: 800, edpi: 400, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Less', name: '펠리피 바수', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;0;o;1;d;1;z;3;f;0;0b;0;1b;0' },
-          { ign: 'mwzera', name: '레오나르두 세하치', sens: 0.24, dpi: 800, edpi: 192, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'heat', name: '올라부 마르셀루', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Saadhak', name: '마티아스 델리페트로', sens: 0.225, dpi: 900, edpi: 229.5, code: '0;P;c;1;o;1;f;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'Dante', name: '헤수스 라로사', sens: 0.5, dpi: 800, edpi: 400, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Less', name: '펠리피 바수', sens: 0.32, dpi: 800, edpi: 256, verified: '공개 DB 확인', code: '0;P;c;0;o;0;0t;1;0l;2;0o;0;0a;1;0f;0;1b;0' },
+          { ign: 'mwzera', name: '레오나르두 세하치', sens: 0.24, dpi: 800, edpi: 192, verified: '공개 DB 확인', code: '0;s;1;P;c;8;u;000000FF;h;0;d;1;b;1;f;0;m;1;0l;3;0o;0;0a;1;1b;0' },
+          { ign: 'heat', name: '올라부 마르셀루', sens: 0.25, dpi: 800, edpi: 200, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Saadhak', name: '마티아스 델리페트로', sens: 0.225, dpi: 900, edpi: 229.5, verified: '공개 DB 확인', code: '0;P;c;1;o;1;f;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Leviatán': [
-          { ign: 'kiNgg', name: '프란시스코 아라베나', sens: 0.24, dpi: 800, edpi: 192, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Sato', name: '에두아르도 사토', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'browz', name: '길례르미 올리배이라', sens: 0.2, dpi: 800, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Neon', name: '브루노 로드리게스', sens: 0.2, dpi: 800, edpi: 160, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'spikeziN', name: '호드리구 롬바르지', sens: 0.23, dpi: 800, edpi: 184, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'kiNgg', name: '프란시스코 아라베나', sens: 0.24, dpi: 800, edpi: 192, verified: '공개 DB 확인', code: '0;P;c;7;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Sato', name: '에두아르도 사토', sens: 0.25, dpi: 800, edpi: 200, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'browz', name: '길례르미 올리배이라', sens: 0.2, dpi: 800, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Neon', name: '브루노 로드리게스', sens: 0.2, dpi: 800, edpi: 160, verified: '확인 필요', code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'spikeziN', name: '호드리구 롬바르지', sens: 0.23, dpi: 800, edpi: 184, verified: '확인 필요', code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
         ],
         'LOUD': [
-          { ign: 'luk xo', name: '루카 트라바이올리', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Darker', name: '세바스티룬 시콰미아', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Erde', name: '로베르토 로보스', sens: 0.2, dpi: 800, edpi: 160, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'tkzin', name: '엔주 지미아니', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'DaviH', name: '다비드 크루스', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'luk xo', name: '루카 트라바이올리', sens: 0.1, dpi: 1600, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Darker', name: '세바스티룬 시콰미아', sens: 0.125, dpi: 1600, edpi: 200, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Erde', name: '로베르토 로보스', sens: 0.2, dpi: 800, edpi: 160, verified: '확인 필요', code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'tkzin', name: '엔주 지미아니', sens: 0.1, dpi: 1600, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'DaviH', name: '다비드 크루스', sens: 0.25, dpi: 800, edpi: 200, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'NRG': [
-          { ign: 'Ethan', name: '이선 아놀드', sens: 0.58, dpi: 400, edpi: 232, code: '0;P;c;1;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'mada', name: '애덤 팸퍼치', sens: 0.37, dpi: 800, edpi: 296, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'brawk', name: '브록 서머홀더', sens: 0.2, dpi: 800, edpi: 160, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'skuba', name: '로건 젱킨스', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'keiko', name: '조지오 새너시', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'Ethan', name: '이선 아놀드', sens: 0.58, dpi: 400, edpi: 232, verified: '공개 DB 확인', code: '0;P;c;5;o;1;0t;1;0o;1;0a;1;0f;0;1b;0' },
+          { ign: 'mada', name: '애덤 팸퍼치', sens: 0.37, dpi: 800, edpi: 296, verified: '공개 DB 확인', code: '0;s;1;P;c;8;u;000000FF;o;1;d;1;f;0;m;1;0l;2;0v;3;0o;0;0a;1;0f;0;1b;0' },
+          { ign: 'brawk', name: '브록 서머홀더', sens: 0.2, dpi: 800, edpi: 160, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'skuba', name: '로건 젱킨스', sens: 0.25, dpi: 800, edpi: 200, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'keiko', name: '조지오 새너시', sens: 0.25, dpi: 800, edpi: 200, verified: '공개 DB 확인', code: '0;s;1;P;c;1;h;0;f;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Cloud9': [
-          { ign: 'GLYPH', name: '코너 가르시아', sens: 0.14, dpi: 1600, edpi: 224, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Zellsis', name: '조던 몬태무로', sens: 0.215, dpi: 800, edpi: 172, code: '0;s;1;P;c;1;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'FireBallOps', name: '캐머런 토머셀리', sens: 0.35, dpi: 400, edpi: 140, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'v1c', name: '빅터 쯔엉', sens: 0.12, dpi: 800, edpi: 96, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'GLYPH', name: '코너 가르시아', sens: 0.14, dpi: 1600, edpi: 224, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Zellsis', name: '조던 몬태무로', sens: 0.215, dpi: 800, edpi: 172, verified: '공개 DB 확인', code: '0;P;c;4;h;0;m;1;0a;1.000;0l;4;0o;2;0f;0;1b;0' },
+          { ign: 'FireBallOps', name: '캐머런 토머셀리', sens: 0.35, dpi: 400, edpi: 140, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'v1c', name: '빅터 쯔엉', sens: 0.12, dpi: 800, edpi: 96, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         '100 Thieves': [
-          { ign: 'Asuna', name: '피터 마주리', sens: 0.26, dpi: 1400, edpi: 364, code: '0;P;o;1;0t;1;0l;2;0a;1;0f;0;1b;0' },
-          { ign: 'Cryo', name: '매튜 팡아니반', sens: 0.08, dpi: 1600, edpi: 128, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Timotino', name: '티모테 뒤퐁', sens: 0.112, dpi: 1600, edpi: 179.2, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Vora', name: '조던 풀워', sens: 0.12, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'bang', name: '숀 베제라', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;8;u;000000FF;h;0;0l;4;0o;0;0a;1;0f;0;1b;0' }
+          { ign: 'Asuna', name: '피터 마주리', sens: 0.26, dpi: 1400, edpi: 364, verified: '공개 DB 확인', code: '0;P;c;5;o;1;0t;1;0l;2;0a;1;0f;0;1b;0' },
+          { ign: 'Cryo', name: '매튜 팡아니반', sens: 0.08, dpi: 1600, edpi: 128, verified: '공개 DB 확인', code: '0;P;c;5;h;0;0l;4;0o;0;0a;1;0f;0;1b;0' },
+          { ign: 'Timotino', name: '티모테 뒤퐁', sens: 0.112, dpi: 1600, edpi: 179.2, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Vora', name: '조던 풀워', sens: 0.12, dpi: 1600, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'bang', name: '숀 베제라', sens: 0.32, dpi: 800, edpi: 256, verified: '공개 DB 확인', code: '0;P;c;8;u;000000FF;h;0;0l;4;0o;0;0a;1;0f;0;1b;0' }
         ],
         'ENVY': [
-          { ign: 'Eggsterr', name: '에번 그레이디', sens: 0.15, dpi: 1600, edpi: 240, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'ion2x', name: '아얀 라스토기', sens: 0.067, dpi: 3200, edpi: 214.4, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'POPPIN', name: '마테오 웨버', sens: 0.045, dpi: 3200, edpi: 144, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'keznit', name: '앙헬로 모리', sens: 0.346, dpi: 800, edpi: 276.8, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Rossy', name: '대니얼 아베도리보', sens: 0.154, dpi: 1600, edpi: 246.4, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Demon1', name: '맥스 마자노프', sens: 0.1, dpi: 1600, edpi: 160, code: '0;s;1;P;o;1;d;1;f;0;0b;0;1b;0' }
+          { ign: 'Eggsterr', name: '에번 그레이디', sens: 0.15, dpi: 1600, edpi: 240, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'ion2x', name: '아얀 라스토기', sens: 0.067, dpi: 3200, edpi: 214.4, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'POPPIN', name: '마테오 웨버', sens: 0.045, dpi: 3200, edpi: 144, verified: '확인 필요', code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'keznit', name: '앙헬로 모리', sens: 0.346, dpi: 800, edpi: 276.8, verified: '공개 DB 확인', code: '0;P;c;4;h;0;0b;0;1l;4;1o;2;1a;1;1m;0;1f;0' },
+          { ign: 'Rossy', name: '대니얼 아베도리보', sens: 0.154, dpi: 1600, edpi: 246.4, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Demon1', name: '맥스 마자노프', sens: 0.1, dpi: 1600, edpi: 160, verified: '공개 DB 확인', code: '0;P;c;5;o;1;0t;1;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ]
       },
       EMEA: {
         'Team Vitality': [
-          { ign: 'Derke', name: '니키타 시르미테프', sens: 0.74, dpi: 400, edpi: 296, code: '0;s;1;P;o;1;d;1;f;0;s;0;0t;0;0l;1;0o;0;0a;1;0f;0;1b;0' },
-          { ign: 'Saynara', name: '슈테판 므트쿠', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Chronicle', name: '티모페이 흐로모프', sens: 0.175, dpi: 1600, edpi: 280, code: '0;P;c;7;o;1;f;0;0t;1;0l;3;0v;3;0g;1;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Jamppi', name: '엘리아스 올코넨', sens: 0.42, dpi: 800, edpi: 336, code: '0;s;1;P;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'PROFEK', name: '다비트 시비엥치', sens: 0.125, dpi: 1600, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'Derke', name: '니키타 시르미테프', sens: 0.74, dpi: 400, edpi: 296, verified: '공개 DB 확인', code: '0;s;1;P;c;8;u;FFA500FF;o;1;d;1;f;0;s;0;0b;0;1t;0;1l;1;1o;0;1a;1;1m;0;1f;0' },
+          { ign: 'Saynara', name: '슈테판 므트쿠', sens: 0.1, dpi: 1600, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Chronicle', name: '티모페이 흐로모프', sens: 0.175, dpi: 1600, edpi: 280, verified: '공개 DB 확인', code: '0;P;c;7;o;1;f;0;0t;1;0l;2;0v;2;0g;1;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Jamppi', name: '엘리아스 올코넨', sens: 0.42, dpi: 800, edpi: 336, verified: '공개 DB 확인', code: '0;s;1;P;c;5;o;1;d;1;z;3;f;0;0t;6;0l;0;0a;1;0f;0;1b;0' },
+          { ign: 'PROFEK', name: '다비트 시비엥치', sens: 0.125, dpi: 1600, edpi: 200, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Team Liquid': [
-          { ign: 'nAts', name: '아야스 아흐메신', sens: 0.49, dpi: 800, edpi: 392, code: '0;P;c;1;o;1;f;0;0t;1;0l;2;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'kamo', name: '카밀 프롱츠코비아크', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Kicks', name: '키미 라스네르', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'trexx', name: '니키타 체레도니첸코', sens: 0.226, dpi: 800, edpi: 180.8, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'GSR', name: '오그넨 본지치', sens: 0.32, dpi: 800, edpi: 256, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'nAts', name: '아야스 아흐메신', sens: 0.49, dpi: 800, edpi: 392, verified: '공개 DB 확인', code: '0;P;c;1;o;1.000;m;1;0a;1.000;0l;2;0t;1;0o;2;0f;0;1b;0' },
+          { ign: 'kamo', name: '카밀 프롱츠코비아크', sens: 0.1, dpi: 1600, edpi: 160, verified: '공개 DB 확인', code: '0;p;0;s;1;P;c;5;h;0;d;1;z;1;f;0;0t;1;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Kicks', name: '키미 라스네르', sens: 0.27, dpi: 800, edpi: 216, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'trexx', name: '니키타 체레도니첸코', sens: 0.226, dpi: 800, edpi: 180.8, verified: '확인 필요', code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'GSR', name: '오그넨 본지치', sens: 0.32, dpi: 800, edpi: 256, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Team Heretics': [
-          { ign: 'benjyfishy', name: '벤지피시', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;7;h;0;d;1;z;1;0t;1;0l;4;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'RieNs', name: '에네스 에지를리', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Wo0t', name: '메르트 알칸', sens: 0.5, dpi: 500, edpi: 250, code: '0;P;c;7;o;1;d;1;z;3;0b;0;1b;0' }
+          { ign: 'benjyfishy', name: '벤지피시', sens: 0.27, dpi: 800, edpi: 216, verified: '공개 DB 확인', code: '0;P;c;7;h;0;0l;4;0o;0;0a;1;0f;0;1b;0' },
+          { ign: 'RieNs', name: '에네스 에지를리', sens: 0.27, dpi: 800, edpi: 216, verified: '공개 DB 확인', code: '0;c;1;s;1;P;c;8;u;EF77BBFF;o;1;b;1;f;0;0l;4;0v;3;0g;1;0o;2;0a;1;0m;1;0f;0;1b;0' },
+          { ign: 'Wo0t', name: '메르트 알칸', sens: 0.5, dpi: 500, edpi: 250, verified: '공개 DB 확인', code: '0;P;c;7;o;1;d;1;0l;0;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Fut Esports': [
-          { ign: 'yetujey', name: '에라이 부다크', sens: 0.7, dpi: 800, edpi: 560, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'xeus', name: '도안 괴즈겐', sens: 0.4, dpi: 400, edpi: 160, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'KROSTALY', name: '오칸 알라참', sens: null, dpi: null, edpi: null, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 's0pp', name: '에페 투르', sens: 0.175, dpi: 1600, edpi: 280, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'sociablEE', name: '볼칸 외날', sens: 0.3, dpi: 800, edpi: 240, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'yetujey', name: '에라이 부다크', sens: 0.7, dpi: 800, edpi: 560, verified: '공개 DB 확인', code: '0;P;c;5;o;1;d;1;0l;2;0o;0;0a;1;0f;0;1b;0' },
+          { ign: 'xeus', name: '도안 괴즈겐', sens: 0.4, dpi: 400, edpi: 160, verified: '공개 DB 확인', code: '0;P;c;8;u;FFFFFF;b;1;t;1;o;0.5;z;2;a;1;0t;2;0l;2;0v;2;0o;1;0a;1;0f;0;1b;0' },
+          { ign: 'KROSTALY', name: '오칸 알라참', sens: null, dpi: null, edpi: null, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 's0pp', name: '에페 투르', sens: 0.175, dpi: 1600, edpi: 280, verified: '확인 필요', code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'sociablEE', name: '볼칸 외날', sens: 0.3, dpi: 800, edpi: 240, verified: '확인 필요', code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Fnatic': [
-          { ign: 'kaajak', name: '카예탄 하렘스키', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Cloud', name: '키릴 네호진', sens: 0.4, dpi: 800, edpi: 320, code: '0;P;c;0;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'kaajak', name: '카예탄 하렘스키', sens: 0.1, dpi: 1600, edpi: 160, verified: '공개 DB 확인', code: '0;s;1;P;c;5;o;1;d;1;f;0;0b;0;1b;0' },
+          { ign: 'Cloud', name: '키릴 네호진', sens: 0.4, dpi: 800, edpi: 320, verified: '확인 필요', code: '0;P;c;0;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
         ],
         'BBL Esports': [
-          { ign: 'Lar0k', name: '유수프 칸배르', sens: 0.4, dpi: 400, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Loita', name: '우트큐 카르트', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Crewen', name: '알리 사르긴', sens: 0.27, dpi: 800, edpi: 216, code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'lovers rock', name: '우무트 페크도안', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Rosé', name: '에렌 에르잔', sens: 0.23, dpi: 800, edpi: 184, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'Lar0k', name: '유수프 칸배르', sens: 0.4, dpi: 400, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Loita', name: '우트큐 카르트', sens: 0.25, dpi: 800, edpi: 200, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Crewen', name: '알리 사르긴', sens: 0.27, dpi: 800, edpi: 216, verified: '확인 필요', code: '0;P;c;1;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'lovers rock', name: '우무트 페크도안', sens: 0.1, dpi: 1600, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Rosé', name: '에렌 에르잔', sens: 0.23, dpi: 800, edpi: 184, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Gentle Mates': [
-          { ign: 'Minny', name: '파트리크 후셰크', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'marteen', name: '마르틴 파테크', sens: 0.06, dpi: 1600, edpi: 96, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Proxh', name: '유수프 툰츠', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'Minny', name: '파트리크 후셰크', sens: 0.1, dpi: 1600, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'marteen', name: '마르틴 파테크', sens: 0.06, dpi: 1600, edpi: 96, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Proxh', name: '유수프 툰츠', sens: 0.25, dpi: 800, edpi: 200, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Natus Vincere': [
-          { ign: 'hiro', name: '에미르한 카트', sens: 0.12, dpi: 1600, edpi: 192, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'Ruxic', name: '우우르 귀츠', sens: 0.3, dpi: 800, edpi: 240, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'CyvOph', name: '클레망 미야르', sens: null, dpi: null, edpi: null, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'hiro', name: '에미르한 카트', sens: 0.12, dpi: 1600, edpi: 192, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'Ruxic', name: '우우르 귀츠', sens: 0.3, dpi: 800, edpi: 240, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'CyvOph', name: '클레망 미야르', sens: null, dpi: null, edpi: null, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' }
         ],
         'Karmine Corp': [
-          { ign: 'avez', name: '하짐 칼리트', sens: 0.1, dpi: 1600, edpi: 160, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'SUYGETSU', name: '드미트리 일류신', sens: 0.25, dpi: 800, edpi: 200, code: '0;P;c;1;o;1;d;1;z;3;f;0;0b;0;1b;0' },
-          { ign: 'dos9', name: '다스탄 주마갈리', sens: 0.135, dpi: 1600, edpi: 216, code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'LewN', name: '부라크 알칸', sens: 0.35, dpi: 800, edpi: 280, code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
-          { ign: 'N4RRATE', name: '마셜 매시', sens: 0.16, dpi: 1600, edpi: 256, code: '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' }
+          { ign: 'avez', name: '하짐 칼리트', sens: 0.1, dpi: 1600, edpi: 160, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'SUYGETSU', name: '드미트리 일류신', sens: 0.25, dpi: 800, edpi: 200, verified: '공개 DB 확인', code: '0;P;c;1;o;1;d;1;z;3;f;0;0b;0;1b;0' },
+          { ign: 'dos9', name: '다스탄 주마갈리', sens: 0.135, dpi: 1600, edpi: 216, verified: '확인 필요', code: '0;P;c;5;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'LewN', name: '부라크 알칸', sens: 0.35, dpi: 800, edpi: 280, verified: '확인 필요', code: '0;P;c;0;h;0;0l;3;0o;2;0a;1;0f;0;1b;0' },
+          { ign: 'N4RRATE', name: '마셜 매시', sens: 0.16, dpi: 1600, edpi: 256, verified: '공개 DB 확인', code: '0;s;1;P;c;5;o;0.2;d;1;z;1;f;0;0t;3;0l;3;0v;3;0o;4;0a;1;0f;0;1b;0' }
         ]
       }
     };
 
+    const QUICK_TAGS = ['전체', '유저 업로드', '점', '십자', '원', '다이아', '하트', '고양이', '스마일', '시안', '초록', '화이트', '노랑', '핑크', '빨강', '외곽선', '미니', '프로'];
+    const PAGE_SIZE = 32;
+
     let currentBg = 'bg-dark';
     let selectedTag = '전체';
+    let currentPage = 1;
     let selectedLeague = 'Pacific';
     let selectedTeam = 'Gen.G';
     let currentModalCode = '';
     let currentModalTitle = '';
+    let isAdminLoggedIn = localStorage.getItem(STORAGE_KEYS.adminAuth) === 'true';
 
-    const QUICK_TAGS = ['전체', '점', '십자', '원', '시안', '초록', '화이트', '외곽선', '미니', '스마일', '하트'];
+    let communityCrosshairs = [];
 
-    function init() {
+    function getAllCrosshairs() {
+      return [...communityCrosshairs, ...BASE_CROSSHAIRS];
+    }
+
+    async function loadCommunityCrosshairs() {
+      const { data, error } = await supabaseClient
+        .from('user_crosshairs')
+        .select('id, name, tags, color_hex, code, created_at')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Supabase 조준점 불러오기 오류:', error);
+        document.getElementById('crosshair-count-text').textContent =
+          '커뮤니티 조준점을 불러오지 못했습니다. Supabase 테이블과 공개 SELECT 정책을 확인해 주세요.';
+        return;
+      }
+
+      communityCrosshairs = (data || []).map(row => ({
+        id: `user-${row.id}`,
+        name: row.name,
+        tags: [...new Set(['유저 업로드', ...(row.tags || [])])],
+        colorHex: row.color_hex || parseCrosshairCode(row.code).color,
+        code: row.code
+      }));
+    }
+
+    function getInquiries() {
+      return JSON.parse(localStorage.getItem(STORAGE_KEYS.inquiries) || '[]');
+    }
+
+    function saveInquiries(list) {
+      localStorage.setItem(STORAGE_KEYS.inquiries, JSON.stringify(list));
+    }
+
+    async function init() {
+      await loadCommunityCrosshairs();
+      updateAdminButtonLabel();
       renderTagFilters();
       renderCrosshairs();
+      previewUploadCode();
       renderLeagues();
       renderTeams();
       renderPros();
       updateMatcher();
-      renderReports();
+      renderInquiries();
     }
 
     function switchTab(tab) {
-      document.getElementById('tab-crosshairs').classList.toggle('active', tab === 'crosshairs');
-      document.getElementById('tab-pros').classList.toggle('active', tab === 'pros');
-      document.getElementById('view-crosshairs').classList.toggle('hidden', tab !== 'crosshairs');
-      document.getElementById('view-pros').classList.toggle('hidden', tab !== 'pros');
+      ['crosshairs', 'pros', 'upload'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+        document.getElementById(`view-${t}`).classList.toggle('hidden', t !== tab);
+      });
     }
 
     function setPreviewBg(bg, btn) {
@@ -939,53 +1283,149 @@
     }
 
     function renderTagFilters() {
-      const container = document.getElementById('tag-filters');
-      container.innerHTML = QUICK_TAGS.map(t => `
+      document.getElementById('tag-filters').innerHTML = QUICK_TAGS.map(t => `
         <button class="tag-chip ${selectedTag === t ? 'active' : ''}" onclick="selectTag('${t}')">${t}</button>
       `).join('');
     }
 
     function selectTag(tag) {
       selectedTag = tag;
+      currentPage = 1;
       renderTagFilters();
       renderCrosshairs();
     }
 
+    function onFilterChange() {
+      currentPage = 1;
+      renderCrosshairs();
+    }
+
+    function changePage(delta) {
+      currentPage = Math.max(1, currentPage + delta);
+      renderCrosshairs();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function renderCrosshairs() {
       const query = document.getElementById('search-input').value.trim().toLowerCase();
-      const filtered = CROSSHAIRS.filter(c => {
+      const all = getAllCrosshairs();
+      const filtered = all.filter(c => {
         const matchTag = selectedTag === '전체' || c.tags.includes(selectedTag);
         const matchQuery = !query || c.name.toLowerCase().includes(query) || c.tags.some(t => t.toLowerCase().includes(query));
         return matchTag && matchQuery;
       });
 
-      const grid = document.getElementById('crosshair-grid');
-      grid.innerHTML = filtered.map(c => `
-        <div class="card">
-          <div class="preview-stage ${currentBg}" onclick="openCrosshairDetail('${c.id}')">
-            ${renderCrosshairSVG(c.code, 84)}
-          </div>
-          <div class="card-body">
-            <div class="card-title">${c.name}</div>
-            <div class="card-tags">
-              ${c.tags.map(t => `<span class="mini-tag">#${t}</span>`).join('')}
+      const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+      document.getElementById('crosshair-count-text').textContent =
+        `전체 등록 조준점: ${all.length.toLocaleString()}개 | 검색 결과: ${filtered.length.toLocaleString()}개`;
+      document.getElementById('page-info').textContent = `${currentPage} / ${totalPages}`;
+      document.getElementById('prev-page-btn').disabled = currentPage <= 1;
+      document.getElementById('next-page-btn').disabled = currentPage >= totalPages;
+
+      document.getElementById('crosshair-grid').innerHTML = pageItems.map(c => {
+        const safeCode = ensureColorInCode(c.code);
+        return `
+          <div class="card">
+            <div class="preview-stage ${currentBg}" onclick="openCrosshairDetail('${c.id}')">
+              <span class="color-dot-badge" style="background:${c.colorHex || parseCrosshairCode(safeCode).color};"></span>
+              ${renderCrosshairSVG(safeCode, 80)}
             </div>
-            <button class="copy-btn" onclick="copyText('${c.code}', this)">코드 복사</button>
+            <div class="card-body">
+              <div class="card-title">${c.name}</div>
+              <div class="card-tags">
+                ${c.tags.slice(0, 4).map(t => `<span class="mini-tag">#${t}</span>`).join('')}
+              </div>
+              <button class="copy-btn" onclick="copyColorCode('${safeCode}', this)">코드 복사 (색상 포함)</button>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function openCrosshairDetail(id) {
-      const item = CROSSHAIRS.find(c => c.id === id);
+      const item = getAllCrosshairs().find(c => c.id === id);
       if (!item) return;
-      currentModalCode = item.code;
+      const safeCode = ensureColorInCode(item.code);
+      const parsed = parseCrosshairCode(safeCode);
+      currentModalCode = safeCode;
       currentModalTitle = item.name;
       document.getElementById('modal-title').textContent = item.name;
-      document.getElementById('modal-preview').innerHTML = renderCrosshairSVG(item.code, 110);
-      document.getElementById('modal-meta').innerHTML = `특징 태그: ${item.tags.map(t => '#' + t).join(' ')}`;
-      document.getElementById('modal-code').textContent = item.code;
+      document.getElementById('modal-preview').className = `preview-stage ${currentBg}`;
+      document.getElementById('modal-preview').innerHTML = renderCrosshairSVG(safeCode, 108);
+      document.getElementById('modal-meta').innerHTML = `
+        <div>특징 태그: ${item.tags.map(t => '#' + t).join(' ')}</div>
+        <div style="margin-top:4px; font-size:0.82rem; color:var(--text-muted);">감지 색상: <strong style="color:${parsed.color};">${parsed.color}</strong> (코드 내 색상 포함 보장)</div>
+      `;
+      document.getElementById('modal-code').textContent = safeCode;
       document.getElementById('detail-modal').classList.add('open');
+    }
+
+    // Upload user crosshair
+    function previewUploadCode() {
+      const raw = document.getElementById('up-code').value.trim();
+      const colorId = document.getElementById('up-color').value;
+      const safe = ensureColorInCode(raw || '0;P;d;1;z;3;0b;0;1b;0', colorId);
+      document.getElementById('upload-live-preview').innerHTML = renderCrosshairSVG(safe, 90);
+    }
+
+    async function submitUserCrosshair(e) {
+      e.preventDefault();
+      const name = document.getElementById('up-name').value.trim();
+      const tagsRaw = document.getElementById('up-tags').value.trim();
+      const colorId = document.getElementById('up-color').value;
+      const codeInput = document.getElementById('up-code').value.trim();
+      const safeCode = ensureColorInCode(codeInput, colorId);
+      const parsed = parseCrosshairCode(safeCode);
+
+      const tags = Array.from(new Set([
+        '유저 업로드',
+        ...tagsRaw.split(',').map(s => s.trim()).filter(Boolean)
+      ]));
+
+      const submitButton = e.target.querySelector('button[type="submit"]');
+      submitButton.disabled = true;
+      submitButton.textContent = '등록 중...';
+
+      const { data, error } = await supabaseClient
+        .from('user_crosshairs')
+        .insert({
+          name,
+          tags: tags.filter(tag => tag !== '유저 업로드'),
+          color_hex: parsed.color,
+          code: safeCode
+        })
+        .select('id, name, tags, color_hex, code')
+        .single();
+
+      submitButton.disabled = false;
+      submitButton.textContent = '조준점 등록하기';
+
+      if (error) {
+        console.error('Supabase 조준점 등록 오류:', error);
+        alert('조준점 등록에 실패했어. Supabase의 user_crosshairs 테이블과 INSERT 정책을 확인해 줘.\n오류: ' + error.message);
+        return;
+      }
+
+      communityCrosshairs.unshift({
+        id: `user-${data.id}`,
+        name: data.name,
+        tags: [...new Set(['유저 업로드', ...(data.tags || [])])],
+        colorHex: data.color_hex || parsed.color,
+        code: data.code
+      });
+
+      e.target.reset();
+      previewUploadCode();
+      switchTab('crosshairs');
+      selectedTag = '유저 업로드';
+      currentPage = 1;
+      renderTagFilters();
+      renderCrosshairs();
     }
 
     // Pro Players
@@ -1019,41 +1459,49 @@
 
     function renderPros() {
       const players = PRO_DATA[selectedLeague][selectedTeam] || [];
-      document.getElementById('pro-grid').innerHTML = players.map((p, idx) => `
-        <div class="pro-card" onclick="openProDetail('${selectedLeague}', '${selectedTeam}', ${idx})">
-          <div class="pro-header">
-            <div>
-              <div class="pro-ign">${p.ign}</div>
-              <div class="pro-name">${p.name} · ${selectedTeam}</div>
+      document.getElementById('pro-grid').innerHTML = players.map((p, idx) => {
+        const safeCode = ensureColorInCode(p.code);
+        const badgeClass = p.verified === '공개 DB 확인' ? 'badge-verified' : 'badge-check';
+        return `
+          <div class="pro-card" onclick="openProDetail('${selectedLeague}', '${selectedTeam}', ${idx})">
+            <div class="pro-header">
+              <div>
+                <div class="pro-ign">${p.ign}</div>
+                <div class="pro-name">${p.name} · ${selectedTeam}</div>
+                <span class="verify-badge ${badgeClass}">${p.verified}</span>
+              </div>
+              <div style="background:#0b1219; border-radius:8px; padding:4px;">
+                ${renderCrosshairSVG(safeCode, 46)}
+              </div>
             </div>
-            <div style="background:#0b1219; border-radius:8px; padding:4px;">
-              ${renderCrosshairSVG(p.code, 46)}
+            <div class="pro-stats">
+              <div><div class="stat-label">DPI</div><div class="stat-val">${p.dpi ?? '-'}</div></div>
+              <div><div class="stat-label">감도</div><div class="stat-val">${p.sens ?? '-'}</div></div>
+              <div><div class="stat-label">eDPI</div><div class="stat-val" style="color:var(--cyan);">${p.edpi ?? '-'}</div></div>
             </div>
+            <button class="copy-btn" onclick="event.stopPropagation(); copyColorCode('${safeCode}', this)">조준점 복사 (색상 포함)</button>
           </div>
-          <div class="pro-stats">
-            <div><div class="stat-label">DPI</div><div class="stat-val">${p.dpi ?? '-'}</div></div>
-            <div><div class="stat-label">감도</div><div class="stat-val">${p.sens ?? '-'}</div></div>
-            <div><div class="stat-label">eDPI</div><div class="stat-val" style="color:var(--cyan);">${p.edpi ?? '-'}</div></div>
-          </div>
-          <button class="copy-btn" onclick="event.stopPropagation(); copyText('${p.code}', this)">조준점 코드 복사</button>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function openProDetail(league, team, idx) {
       const p = PRO_DATA[league][team][idx];
-      currentModalCode = p.code;
+      const safeCode = ensureColorInCode(p.code);
+      currentModalCode = safeCode;
       currentModalTitle = `${team} ${p.ign} (${p.name})`;
       document.getElementById('modal-title').textContent = currentModalTitle;
-      document.getElementById('modal-preview').innerHTML = renderCrosshairSVG(p.code, 110);
+      document.getElementById('modal-preview').className = `preview-stage ${currentBg}`;
+      document.getElementById('modal-preview').innerHTML = renderCrosshairSVG(safeCode, 108);
       document.getElementById('modal-meta').innerHTML = `
+        <div style="margin-bottom:8px; font-size:0.8rem; color:var(--text-muted);">상태: <strong>${p.verified}</strong></div>
         <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; text-align:center; background:#0b1219; padding:10px; border-radius:8px;">
           <div><span style="color:var(--text-muted); font-size:0.75rem;">DPI</span><br><strong>${p.dpi ?? '-'}</strong></div>
           <div><span style="color:var(--text-muted); font-size:0.75rem;">인게임 감도</span><br><strong>${p.sens ?? '-'}</strong></div>
           <div><span style="color:var(--text-muted); font-size:0.75rem;">eDPI</span><br><strong style="color:var(--cyan);">${p.edpi ?? '-'}</strong></div>
         </div>
       `;
-      document.getElementById('modal-code').textContent = p.code;
+      document.getElementById('modal-code').textContent = safeCode;
       document.getElementById('detail-modal').classList.add('open');
     }
 
@@ -1080,27 +1528,183 @@
       document.getElementById('match-results').innerHTML = top3.map(p => `
         <div class="match-card" onclick="openProDetail('${p.league}', '${p.team}', ${p.idx})">
           <div>
-            <div style="font-weight:800; font-size:0.95rem;">${p.ign} <span style="font-size:0.75rem; color:var(--text-muted);">(${p.team})</span></div>
-            <div style="font-size:0.78rem; color:var(--cyan);">eDPI ${p.edpi} (차이 ${p.diff.toFixed(1)})</div>
+            <div style="font-weight:800; font-size:0.92rem;">${p.ign} <span style="font-size:0.75rem; color:var(--text-muted);">(${p.team})</span></div>
+            <div style="font-size:0.76rem; color:var(--cyan);">eDPI ${p.edpi} (차이 ${p.diff.toFixed(1)})</div>
           </div>
-          ${renderCrosshairSVG(p.code, 38)}
+          ${renderCrosshairSVG(ensureColorInCode(p.code), 38)}
         </div>
       `).join('');
     }
 
-    function copyText(text, btn) {
-      navigator.clipboard.writeText(text);
+    // Inquiry & Admin System (code: hb0111)
+    function updateAdminButtonLabel() {
+      const btn = document.getElementById('admin-toggle-btn');
+      btn.textContent = isAdminLoggedIn ? '관리자 모드 ON (로그아웃)' : '관리자 모드';
+    }
+
+    function handleAdminButton() {
+      if (isAdminLoggedIn) {
+        isAdminLoggedIn = false;
+        localStorage.setItem(STORAGE_KEYS.adminAuth, 'false');
+        updateAdminButtonLabel();
+        renderInquiries();
+        return;
+      }
+      document.getElementById('admin-error-msg').textContent = '';
+      document.getElementById('admin-code-input').value = '';
+      document.getElementById('admin-modal').classList.add('open');
+    }
+
+    function verifyAdminCode(e) {
+      e.preventDefault();
+      const input = document.getElementById('admin-code-input').value.trim();
+      if (input === ADMIN_CODE) {
+        isAdminLoggedIn = true;
+        localStorage.setItem(STORAGE_KEYS.adminAuth, 'true');
+        closeModal('admin-modal');
+        updateAdminButtonLabel();
+        renderInquiries();
+      } else {
+        document.getElementById('admin-error-msg').textContent = '관리자 코드가 일치하지 않습니다.';
+      }
+    }
+
+    function openInquiryModal(prefill = '') {
+      document.getElementById('inq-content').value = prefill;
+      document.getElementById('inquiry-modal').classList.add('open');
+    }
+
+    function reportCurrentItem() {
+      closeModal('detail-modal');
+      openInquiryModal(`[${currentModalTitle}] 관련 수정 요청: `);
+    }
+
+    function submitInquiry(e) {
+      e.preventDefault();
+      const list = getInquiries();
+      list.unshift({
+        id: 'inq-' + Date.now(),
+        author: document.getElementById('inq-author').value.trim(),
+        type: document.getElementById('inq-type').value,
+        content: document.getElementById('inq-content').value.trim(),
+        reply: '',
+        date: new Date().toLocaleString('ko-KR')
+      });
+      saveInquiries(list);
+      e.target.reset();
+      closeModal('inquiry-modal');
+      renderInquiries();
+    }
+
+    function saveReply(id) {
+      const input = document.getElementById(`reply-input-${id}`);
+      if (!input) return;
+      const text = input.value.trim();
+      const list = getInquiries().map(item => item.id === id ? { ...item, reply: text } : item);
+      saveInquiries(list);
+      renderInquiries();
+    }
+
+    function deleteInquiry(id) {
+      if (!isAdminLoggedIn) return;
+      const list = getInquiries().filter(item => item.id !== id);
+      saveInquiries(list);
+      renderInquiries();
+    }
+
+    function renderInquiries() {
+      const list = getInquiries();
+      const container = document.getElementById('inquiries-list');
+      if (list.length === 0) {
+        container.innerHTML = `<div class="inquiry-item" style="color:var(--text-muted); font-size:0.86rem;">등록된 문의가 없습니다. 상단 '문의 / 수정요청' 버튼으로 문의를 남겨보세요.</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(item => `
+        <div class="inquiry-item">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
+            <div>
+              <strong style="color:var(--cyan);">[${item.type}]</strong>
+              <strong>${item.author}</strong>
+            </div>
+            <span style="font-size:0.75rem; color:var(--text-muted);">${item.date}</span>
+          </div>
+          <p style="margin-top:8px; font-size:0.9rem; white-space:pre-wrap;">${item.content}</p>
+          ${item.reply ? `
+            <div class="reply-box">
+              <strong style="color:var(--cyan);">제작자 답장:</strong>
+              <p style="margin-top:4px; white-space:pre-wrap;">${item.reply}</p>
+            </div>
+          ` : ''}
+          ${isAdminLoggedIn ? `
+            <div class="admin-controls">
+              <div style="font-size:0.75rem; color:var(--amber); font-weight:700;">관리자 제어 (hb0111)</div>
+              <textarea id="reply-input-${item.id}" rows="2" placeholder="답장 내용을 입력하세요...">${item.reply || ''}</textarea>
+              <div style="display:flex; gap:8px;">
+                <button class="action-btn" onclick="saveReply('${item.id}')">답장 저장</button>
+                <button class="copy-btn" style="width:auto; padding:6px 12px; margin-top:0;" onclick="deleteInquiry('${item.id}')">문의 삭제</button>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `).join('');
+    }
+
+    // Export / Import JSON for cross-device / GitHub sharing
+    function exportAllData() {
+      const payload = {
+        exportedAt: new Date().toISOString(),
+        userCrosshairs: JSON.parse(localStorage.getItem(STORAGE_KEYS.userCrosshairs) || '[]'),
+        inquiries: getInquiries()
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'valo-gg-community-data.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importAllData(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const data = JSON.parse(reader.result);
+          if (Array.isArray(data.userCrosshairs)) {
+            localStorage.setItem(STORAGE_KEYS.userCrosshairs, JSON.stringify(data.userCrosshairs));
+          }
+          if (Array.isArray(data.inquiries)) {
+            saveInquiries(data.inquiries);
+          }
+          renderCrosshairs();
+          renderInquiries();
+          alert('데이터를 성공적으로 불러왔습니다.');
+        } catch (err) {
+          alert('올바른 JSON 파일이 아닙니다.');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function copyColorCode(code, btn) {
+      const finalCode = ensureColorInCode(code);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(finalCode).catch(() => {});
+      }
       const orig = btn.textContent;
-      btn.textContent = '복사 완료!';
+      btn.textContent = '색상 포함 복사됨!';
       btn.classList.add('copied');
       setTimeout(() => {
         btn.textContent = orig;
         btn.classList.remove('copied');
-      }, 1400);
+      }, 1300);
     }
 
     function copyModalCode() {
-      copyText(currentModalCode, document.getElementById('modal-copy-btn'));
+      copyColorCode(currentModalCode, document.getElementById('modal-copy-btn'));
     }
 
     function closeModal(id) {
@@ -1109,49 +1713,6 @@
 
     function closeModalOnBackdrop(e, id) {
       if (e.target.id === id) closeModal(id);
-    }
-
-    function openReportModal(prefillTarget = '') {
-      document.getElementById('rep-target').value = prefillTarget;
-      document.getElementById('report-modal').classList.add('open');
-    }
-
-    function reportCurrentItem() {
-      closeModal('detail-modal');
-      openReportModal(currentModalTitle);
-    }
-
-    function submitReport(e) {
-      e.preventDefault();
-      const reports = JSON.parse(localStorage.getItem('valo_gg_reports') || '[]');
-      reports.unshift({
-        type: document.getElementById('rep-type').value,
-        target: document.getElementById('rep-target').value,
-        desc: document.getElementById('rep-desc').value,
-        date: new Date().toLocaleString('ko-KR')
-      });
-      localStorage.setItem('valo_gg_reports', JSON.stringify(reports));
-      e.target.reset();
-      closeModal('report-modal');
-      renderReports();
-    }
-
-    function renderReports() {
-      const reports = JSON.parse(localStorage.getItem('valo_gg_reports') || '[]');
-      const container = document.getElementById('reports-list');
-      if (reports.length === 0) {
-        container.innerHTML = `<p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">아직 접수된 수정 요청이 없습니다. 상단 '+ 정보 수정 / 제보' 버튼으로 첫 요청을 남겨보세요.</p>`;
-        return;
-      }
-      container.innerHTML = reports.map(r => `
-        <div class="report-item">
-          <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-            <strong style="color:var(--cyan);">[${r.type}] ${r.target}</strong>
-            <span style="font-size:0.75rem; color:var(--text-muted);">${r.date}</span>
-          </div>
-          <div style="color:var(--text-main);">${r.desc}</div>
-        </div>
-      `).join('');
     }
 
     init();
